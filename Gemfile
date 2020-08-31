@@ -34,7 +34,7 @@ gem 'ransack', '~> 2.3', '>= 2.3.2'
 gem 'rubocop-rails', '~> 2.7', '>= 2.7.1'
 gem 'rubocop-rspec', '~> 1.27'
 gem 'select2-rails', '~> 4.0', '>= 4.0.13'
-gem 'slim', '~> 3.0', '>= 3.0.6'
+gem 'slim-rails', '~> 3.1', '>= 3.1.1'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
