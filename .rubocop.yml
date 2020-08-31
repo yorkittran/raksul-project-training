@@ -1,0 +1,75 @@
+require:
+  - rubocop-rspec
+
+Rails:
+  Enabled: true
+
+AllCops:
+  NewCops: disable
+  TargetRubyVersion: 2.4
+  Exclude:
+    - "vendor/bundle/**/*"
+    - "node_modules/**/*"
+    - ",/**/*"
+    - ".git/**/*"
+    - "bin/*"
+    - "db/schema.rb"
+    - "db/migrate/*.rb"
+    - "log/**/*"
+    - "public/**/*"
+    - "tmp/**/*"
+    - "config/initializers/*"
+
+Layout/LineLength:
+  Max: 120
+  Exclude:
+    - "app/views/**/*"
+    - "config/**/*.rb"
+    - "spec/factories/**/*.rb"
+    - "Guardfile"
+
+Metrics/BlockLength:
+  Enabled: false
+
+RSpec/ExampleLength:
+  Enabled: false
+
+Documentation:
+  Enabled: false
+
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: comma
+
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: comma
+
+Style/TrailingCommaInArguments:
+  EnforcedStyleForMultiline: comma
+
+Style/AsciiComments:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/RegexpLiteral:
+  Enabled: true
+
+Style/MixinGrouping:
+  Enabled: true
+  Exclude:
+    - 'rails_helper.rb'
+    - 'spec/spec_helper.rb'
+    - 'spec/**/*_spec.rb'
+
+# Settings for rspec
+RSpec/NamedSubject:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Enabled: true
+  Exclude:
+    - 'spec/requests/**/*_spec.rb'
+
+RSpec/NestedGroups:
+  Max: 4
