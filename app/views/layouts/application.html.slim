@@ -1,14 +1,8 @@
 doctype html
-html
-  head
-    title = 'RaksulProjectTraining'
-    = csrf_meta_tags
-    = csp_meta_tag
-
-    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
-    = stylesheet_pack_tag 'application', 'data-turbolinks-track': 'reload'
-    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
-
+html.antialiased
   body
-    = yield
-
+    = render "shared/head"
+    = render "shared/flash_notice"
+    = render "shared/header"
+    main.px-4.lg_px-10
+      = content_for?(:content) ? yield(:content) : yield
