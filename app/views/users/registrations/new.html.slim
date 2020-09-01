@@ -13,12 +13,12 @@
       div class='md_w-2-of-3'
         = f.password_field :password, autofocus: true, autocomplete: 'new-password', class: 'bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus_outline-none focus_bg-white focus_border-blue-500'
     .md_flex.md_items-center.mb-6
-      div class='md_w-1-password_confirmation-3'
-        = f.label :password, class: 'block text-gray-600 font-bold md_text-right mb-1 md_mb-0 pr-4', for: 'password_confirmation'
+      div class='md_w-1-of-3'
+        = f.label :password_confirmation, class: 'block text-gray-600 font-bold md_text-right mb-1 md_mb-0 pr-4', for: 'password_confirmation'
       div class='md_w-2-of-3'
         = f.password_field :password_confirmation, autofocus: true, autocomplete: 'new-password', class: 'bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus_outline-none focus_bg-white focus_border-blue-500'
     .md_flex.md_items-center
       div class='md_w-1-of-3'
       div class='md_w-2-of-3'
-        = f.submit 'Sign up', class: 'shadow bg-gray-500 hover_bg-gray-700 focus_shadow-outline focus_outline-none text-white font-bold py-2 px-4 rounded'
+        = f.submit 'Sign up', class: 'shadow bg-green-500 hover_bg-green-700 focus_shadow-outline focus_outline-none text-white font-bold py-2 px-4 rounded'
     = render 'users/shared/links'

@@ -3,13 +3,13 @@ body
     nav#header.w-full.z-30.top-0.py-1
       .w-full.container.mx-auto.flex.flex-wrap.items-center.justify-between.mt-0.px-6.py-3
         .order-1.md_order-2
-          = link_to "NORDICS", root_path, class: 'flex items-center tracking-wide no-underline hover_no-underline font-bold text-gray-800 text-xl'
+          = link_to 'NORDICS', root_path, class: 'flex items-center tracking-wide no-underline hover_no-underline font-bold text-gray-800 text-xl'
         #nav-content.order-2.md_order-3.flex.items-center
           - if user_signed_in?
-            a.bg-blue-500.hover_bg-blue-700.text-white.font-bold.py-2.px-4.mx-2.rounded.inline-flex.items-center
-              | Login
-            a.bg-gray-300.hover_bg-gray-400.text-gray-800.font-bold.py-2.px-4.mx-2.rounded.inline-flex.items-center
-              | Signup
+            | Welcome,
+            = current_user.email
+            = link_to 'Log out', destroy_user_session_path, method: :delete, class:'bg-red-500 hover_bg-red-700 text-white font-bold py-2 px-4 mx-2 rounded inline-flex items-center'
+
           - else
-            = link_to "Login", new_user_session_path, class:"bg-blue-500 hover_bg-blue-700 text-white font-bold py-2 px-4 mx-2 rounded inline-flex items-center"
-            = link_to "Sign up", new_user_registration_path, class: 'bg-gray-300 hover_bg-gray-400 text-gray-800 font-bold py-2 px-4 mx-2 rounded inline-flex items-center'
+            = link_to 'Login', new_user_session_path, class:'bg-blue-500 hover_bg-blue-700 text-white font-bold py-2 px-4 mx-2 rounded inline-flex items-center'
+            = link_to 'Sign up', new_user_registration_path, class: 'bg-gray-300 hover_bg-gray-400 text-gray-800 font-bold py-2 px-4 mx-2 rounded inline-flex items-center'
