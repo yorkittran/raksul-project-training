@@ -1,0 +1,25 @@
+.flex.content-center.justify-center
+  = form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: 'min-w-1-of-2 max-w-sm bg-gray-100 p-10 rounded'}) do |f|
+    h2.text-3xl.font-bold.justify-center.mb-8 Log in
+    .md_flex.md_items-center.mb-6
+      div class='md_w-1-of-3'
+        = f.label :email, class: 'block text-gray-600 font-bold md_text-right mb-1 md_mb-0 pr-4', for: 'email'
+      div class='md_w-2-of-3'
+        = f.email_field :email, autofocus: true, autocomplete: 'email', class: 'bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus_outline-none focus_bg-white focus_border-blue-500'
+    .md_flex.md_items-center.mb-6
+      div class='md_w-1-of-3'
+        = f.label :password, class: 'block text-gray-600 font-bold md_text-right mb-1 md_mb-0 pr-4', for: 'password'
+      div class='md_w-2-of-3'
+        = f.password_field :password, autofocus: true, autocomplete: 'current-password', class: 'bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus_outline-none focus_bg-white focus_border-blue-500'
+    - if devise_mapping.rememberable?
+      .md_flex.md_items-center.mb-6
+        div class='md_w-1-of-3'
+        label.block.text-gray-600.font-bold.md_w-2-of-3
+          = f.check_box :remember_me, class: 'mr-2 leading-tight'
+          span.text-sm
+            | Remember me
+    .md_flex.md_items-center
+      div class='md_w-1-of-3'
+      div class='md_w-2-of-3'
+        = f.submit 'Log in', class: 'shadow bg-blue-500 hover_bg-blue-700 focus_shadow-outline focus_outline-none text-white font-bold py-2 px-4 rounded'
+    = render 'users/shared/links'
