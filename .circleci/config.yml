@@ -5,13 +5,12 @@ orbs:
 jobs:
   build:
     docker:
-      - image: circleci/ruby:2.6.3-stretch-node
-    executor: ruby/default
+      - image: cimg/ruby:2.6.3
+      - image: circleci/mysql:5.7
+        environment:
+          TZ: Asia/Tokyo
+          MYSQL_ALLOW_EMPTY_PASSWORD: true
+          MYSQL_ROOT_HOST: '%'
     steps:
       - checkout
-      - run:
-          name: Which bundler?
-          command: bundle -v
       - ruby/bundle-install
-      - rubocop
-      - rspec
