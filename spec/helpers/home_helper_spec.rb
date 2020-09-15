@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 # Specs in this file have access to a helper object that includes
@@ -10,6 +12,9 @@ require 'rails_helper'
 #     end
 #   end
 # end
+
+# rubocop:disable RSpec/EmptyExampleGroup
 RSpec.describe HomeHelper, type: :helper do
   pending "add some examples to (or delete) #{__FILE__}"
 end
+# rubocop:enable RSpec/EmptyExampleGroup
