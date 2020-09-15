@@ -9,11 +9,8 @@ jobs:
     executor: ruby/default
     steps:
       - checkout
-      - bundle -v
-      - ruby/bundle-install
-
-      # before test
+      - run:
+          name: Which bundler?
+          command: bundle -v
       - rubocop
-
-      # test
       - rspec
