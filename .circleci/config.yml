@@ -28,6 +28,17 @@ jobs:
           key: vendor-bundle-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
+      # yarn
+      - restore_cache:
+          keys:
+            - yarn-{{ checksum "yarn.lock" }}
+      - run:
+          name: yarn
+          command: yarn install
+      - save_cache:
+          key: yarn-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
       # db
       - run:
           name: Wait for DB
