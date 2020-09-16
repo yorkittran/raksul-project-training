@@ -13,6 +13,7 @@ jobs:
           MYSQL_ROOT_HOST: '%'
     steps:
       - checkout
+      - apt-get update
       - run:
           name: Get mysql client
           command: apt-get install libmysqlclient-dev
