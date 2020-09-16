@@ -13,9 +13,9 @@ jobs:
           MYSQL_ROOT_HOST: '%'
     steps:
       - checkout
-      - run:
-          name: Get mysql client
-          command: apt install -y mysql-client
+      # - run:
+      #     name: Get mysql client
+      #     command: apt install -y mysql-client
       - ruby/bundle-install
       - run:
           name: Wait for DB
