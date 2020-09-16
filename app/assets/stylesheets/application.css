@@ -43,3 +43,19 @@ i {
 .group:hover .group-hover\:text-blue-800 {
     color: #2b6cb0;
 }
+
+/* Trigger border */
+.border-custom {
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
+    border-color: #e2e8f0;
+    border-width: 1px;
+    border-radius: 0.25rem;
+}
+
+.border-custom-triggered {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
+    border-color: #63b3ed;
+}
