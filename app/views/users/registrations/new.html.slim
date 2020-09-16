@@ -9,14 +9,19 @@
         = f.email_field :email, autofocus: true, autocomplete: 'email', class: 'bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus_outline-none focus_bg-white focus_border-blue-500'
     .md_flex.md_items-center.mb-6
       div class='md_w-1-of-3'
+        = f.label :fullname, class: 'block text-gray-600 font-bold md_text-right mb-1 md_mb-0 pr-4', for: 'fullname'
+      div class='md_w-2-of-3'
+        = f.text_field :fullname, class: 'bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus_outline-none focus_bg-white focus_border-blue-500'
+    .md_flex.md_items-center.mb-6
+      div class='md_w-1-of-3'
         = f.label :password, class: 'block text-gray-600 font-bold md_text-right mb-1 md_mb-0 pr-4', for: 'password'
       div class='md_w-2-of-3'
-        = f.password_field :password, autofocus: true, autocomplete: 'new-password', class: 'bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus_outline-none focus_bg-white focus_border-blue-500'
+        = f.password_field :password, autocomplete: 'new-password', class: 'bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus_outline-none focus_bg-white focus_border-blue-500'
     .md_flex.md_items-center.mb-6
       div class='md_w-1-of-3'
         = f.label :password_confirmation, class: 'block text-gray-600 font-bold md_text-right mb-1 md_mb-0 pr-4', for: 'password_confirmation'
       div class='md_w-2-of-3'
-        = f.password_field :password_confirmation, autofocus: true, autocomplete: 'new-password', class: 'bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus_outline-none focus_bg-white focus_border-blue-500'
+        = f.password_field :password_confirmation, autocomplete: 'new-password', class: 'bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus_outline-none focus_bg-white focus_border-blue-500'
     .md_flex.md_items-center
       div class='md_w-1-of-3'
       div class='md_w-2-of-3'
