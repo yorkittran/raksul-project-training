@@ -16,7 +16,7 @@ jobs:
       - run:
           name: Get mysql client
           command: |
-            apt-get update -y && apt-get install libmysqlclient-dev
+            apt-get update -y && apt-get install libmysqlclient-dev -y
       - ruby/bundle-install
       - run:
           name: Wait for DB
