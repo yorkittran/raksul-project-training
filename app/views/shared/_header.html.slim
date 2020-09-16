@@ -7,9 +7,17 @@ body
         #nav-content.order-2.md_order-3.flex.items-center
           - if user_signed_in?
             | Welcome,
-            = current_user.fullname
-            = link_to 'Log out', destroy_user_session_path, method: :delete, class:'bg-red-500 hover_bg-red-700 text-white font-bold py-2 px-4 mx-2 rounded inline-flex items-center'
-
+            .dropdown.inline-block.relative
+              .py-2.px-2.inline-flex.items-center
+                span.mr-1
+                  = current_user.fullname
+                svg.fill-current.h-4.w-4[xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 20"]
+                  path[d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"]
+              ul.dropdown-menu.absolute.hidden.text-gray-800.pt-1.shadow.rounded.text-right
+                li
+                  = link_to 'Profile', edit_user_registration_path, class:'rounded-b hover_bg-gray-200 py-2 pr-4 pl-10 block whitespace-no-wrap'
+                li
+                  = link_to 'Log out', destroy_user_session_path, method: :delete, class:'rounded-b hover_bg-red-500 hover_text-white py-2 pr-4 pl-10 block whitespace-no-wrap'
           - else
             = link_to 'Login', new_user_session_path, class:'bg-blue-500 hover_bg-blue-700 text-white font-bold py-2 px-4 mx-2 rounded inline-flex items-center'
             = link_to 'Sign up', new_user_registration_path, class: 'bg-gray-300 hover_bg-gray-400 text-gray-800 font-bold py-2 px-4 mx-2 rounded inline-flex items-center'
