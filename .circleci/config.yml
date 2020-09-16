@@ -17,7 +17,18 @@ jobs:
           name: Get mysql client
           command: |
             apt-get update -y && apt-get install libmysqlclient-dev -y
-      - ruby/bundle-install
+      # bundle
+      - restore_cache:
+          keys:
+            - vendor-bundle-{{ checksum "Gemfile.lock" }}
+      - run:
+          name: bundle check
+          command: bundle check --path=vendor/bundle || bundle install --path=vendor/bundle
+      - save_cache:
+          key: vendor-bundle-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+      # db
       - run:
           name: Wait for DB
           command: dockerize -wait tcp://localhost:3306 -timeout 1m
