@@ -3,6 +3,7 @@
 Rails.application.routes.draw do
   resources :phones
   resources :models
+  resources :manufacturers
   devise_for :users, controllers: {
     sessions: 'users/sessions',
     registrations: 'users/registrations',

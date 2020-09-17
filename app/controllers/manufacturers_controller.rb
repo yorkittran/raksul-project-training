@@ -69,6 +69,6 @@ class ManufacturersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def manufacturer_params
-      params.fetch(:manufacturer, {})
+      params.require(:manufacturer).permit(:name, :logo)
     end
 end
