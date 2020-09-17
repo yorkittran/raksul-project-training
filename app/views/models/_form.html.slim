@@ -14,34 +14,27 @@
       = f.text_field :name, autofocus: true, class: 'form-input w-full'
   .md_flex.md_items-center.mb-6
     .md_w-1-of-3
-      = f.label 'Year of Manufacture', class: 'block text-gray-800 font-bold md_text-right mb-1 md_mb-0 pr-4', for: ''
-    select.form-select.w-full.md_w-1-of-3
-      option 2020
-      option 2019
-      option 2018
-      option 2017
+      = f.label 'Year of Manufacture', class: 'block text-gray-800 font-bold md_text-right mb-1 md_mb-0 pr-4', for: 'year_of_manufacture'
+    = f.select :year_of_manufacture, @years, {} , { class: 'form-select w-full md_w-1-of-3' }
 
   h1.text-xl.mb-6.font-bold.my-10 Step 2 - Manufacturer
+  = f.hidden_field :manufacturer_id
   .grid.grid-cols-3.gap-4
-    div
-      = image_tag("https://upload.wikimedia.org/wikipedia/commons/a/a5/Apple_gray_logo.png", size: "200x200", class: "manufacturer rounded align-middle border-custom mx-auto")
-      p.text-xl.text-center.pt-4 Apple
-    div
-      = image_tag("https://i1.wp.com/www.getsims.com/wp-content/uploads/2018/03/samsung-logo-square.jpg", size: "200x200", class: "manufacturer rounded align-middle border-custom mx-auto")
-      p.text-xl.text-center.pt-4 Samsung
-    div
-      = image_tag("https://cdn.mos.cms.futurecdn.net/FhGDYj3uBAqeirZ4BXSYMH.jpg", size: "200x200", class: "manufacturer rounded align-middle border-custom mx-auto")
-      p.text-xl.text-center.pt-4 Sony
+    - @manufacturers.each do |manufacturer|
+        div
+          = image_tag manufacturer.logo, size: "200x200", class: "manufacturer rounded-md align-middle border-custom mx-auto"
+          p.text-xl.text-center.pt-4
+            = manufacturer.name
 
   h1.text-xl.mb-6.font-bold.my-10 Step 3 - OS
+  = f.hidden_field :os_name_id
   .grid.grid-cols-2.gap-4
-    div
-      = image_tag("https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/IOS_logo.svg/1024px-IOS_logo.svg.png", size: "200x200", class: "os rounded max-w-full h-auto align-middle border-custom mx-auto")
-      p.text-xl.text-center.pt-4 iOS
-    div
-      = image_tag("https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Android_logo_2019.png/479px-Android_logo_2019.png", size: "200x200", class: "os rounded max-w-full h-auto align-middle border-custom mx-auto")
-      p.text-xl.text-center.pt-4 Android
+    - @os_names.each do |os_name|
+        div
+          = image_tag os_name.logo, size: "200x200", class: "os rounded-md align-middle border-custom mx-auto"
+          p.text-xl.text-center.pt-4
+            = os_name.name
 
   .md_flex.md_items-center.my-10.justify-center
-    = link_to 'Back', models_path, class: 'hover_bg-gray-200 focus_shadow-outline focus_outline-none text-gray-800 font-bold py-2 px-4 mx-4 rounded'
-    = f.submit 'Create', class: 'shadow bg-blue-500 hover_bg-blue-600 focus_shadow-outline focus_outline-none text-white font-bold py-2 px-4 mx-4 rounded'
+    = link_to 'Back', models_path, class: 'hover_bg-gray-200 focus_shadow-outline focus_outline-none text-gray-800 font-bold py-2 px-4 mx-4 rounded-md'
+    = f.submit @submit_text, class: 'shadow bg-blue-500 hover_bg-blue-600 focus_shadow-outline focus_outline-none text-white font-bold py-2 px-4 mx-4 rounded-md'

@@ -14,7 +14,10 @@ class ModelsController < ApplicationController
 
   # GET /models/new
   def new
+    @manufacturers = Manufacturer.all
+    @os_names = OsName.all
     @model = Model.new
+    @years = (Date.today.year - 5..Date.today.year).to_a.reverse
   end
 
   # GET /models/1/edit
@@ -69,6 +72,6 @@ class ModelsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def model_params
-      params.fetch(:model, {})
+      params.require(:model).permit(:name, :manufacturer_id, :os_name_id, :year_of_manufacture)
     end
 end
