@@ -47,16 +47,6 @@ javascript:
   const gallery = document.getElementById("gallery"),
     overlay = document.getElementById("overlay");
 
-  // click the hidden input of type file if the visible button is clicked
-  // and capture the selected files
-  const hidden = document.getElementById("hidden-input");
-  document.getElementById("button").onclick = () => hidden.click();
-  hidden.onchange = (e) => {
-    for (const file of e.target.files) {
-      addFile(gallery, file);
-    }
-  };
-
   // use to check if a file is being dragged
   const hasFiles = ({ dataTransfer: { types = [] } }) =>
     types.indexOf("Files") > -1;
