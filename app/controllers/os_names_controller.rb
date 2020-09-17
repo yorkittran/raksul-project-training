@@ -69,6 +69,6 @@ class OsNamesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def os_name_params
-      params.fetch(:os_name, {})
+      params.require(:os_name).permit(:name, :logo)
     end
 end
