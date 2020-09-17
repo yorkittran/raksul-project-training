@@ -21,8 +21,8 @@
   = f.hidden_field :manufacturer_id
   .grid.grid-cols-3.gap-4
     - @manufacturers.each do |manufacturer|
-        div
-          = image_tag manufacturer.logo, size: "200x200", class: "manufacturer rounded-md align-middle border-custom mx-auto"
+        div#
+          = image_tag manufacturer.logo, size: "200x200", class: "manufacturer rounded-md align-middle border-custom mx-auto", alt: manufacturer.id
           p.text-xl.text-center.pt-4
             = manufacturer.name
 
@@ -31,7 +31,7 @@
   .grid.grid-cols-2.gap-4
     - @os_names.each do |os_name|
         div
-          = image_tag os_name.logo, size: "200x200", class: "os rounded-md align-middle border-custom mx-auto"
+          = image_tag os_name.logo, size: "200x200", class: "os rounded-md align-middle border-custom mx-auto", alt: os_name.id
           p.text-xl.text-center.pt-4
             = os_name.name
 

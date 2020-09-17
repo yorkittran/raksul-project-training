@@ -56,7 +56,7 @@ ActiveRecord::Schema.define(version: 2020_09_16_060638) do
     t.string "name"
     t.bigint "manufacturer_id", null: false
     t.bigint "os_name_id", null: false
-    t.datetime "year_of_manufacture", null: false
+    t.integer "year_of_manufacture", null: false
     t.boolean "delete_flag", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

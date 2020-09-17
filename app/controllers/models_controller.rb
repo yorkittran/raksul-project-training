@@ -22,6 +22,9 @@ class ModelsController < ApplicationController
 
   # GET /models/1/edit
   def edit
+    @manufacturers = Manufacturer.all
+    @os_names = OsName.all
+    @years = (Date.today.year - 5..Date.today.year).to_a.reverse
   end
 
   # POST /models
