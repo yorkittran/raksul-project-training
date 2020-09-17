@@ -1,8 +1,8 @@
 .flex.content-center.justify-center
-    .min-w-1-of-2.max-w-sm.bg-gray-200.p-10.rounded.shadow
-      h2.text-3xl.font-bold.justify-center.mb-8
-        = @os_name.name
-      .md_flex.md_items-center.mb-6
-        = image_tag @os_name.logo.variant(resize_to_limit: [500, nil]), class: 'rounded'
-      = link_to 'Back', os_names_path, class: 'hover_bg-gray-200 focus_shadow-outline focus_outline-none text-gray-800 font-bold py-2 px-4 mx-4 rounded'
-      = link_to 'Edit', edit_os_name_path(@os_name), class: 'shadow bg-orange-500 hover_bg-orange-600 focus_shadow-outline focus_outline-none text-white font-bold py-2 px-4 mx-4 rounded'
+  .min-w-1-of-2.max-w-sm.p-10.rounded.shadow-xl
+    h2.text-3xl.font-bold.justify-center.mb-8
+      = @os_name.name
+    .md_flex.md_items-center.mb-6
+      = image_tag @os_name.logo.variant(resize_to_limit: [500, nil]), class: 'rounded'
+    = link_to 'Back', os_names_path, class: 'hover_bg-gray-200 focus_shadow-outline focus_outline-none text-gray-800 font-bold py-2 px-4 mx-4 rounded'
+    = link_to 'Edit', edit_os_name_path(@os_name), class: 'shadow bg-orange-500 hover_bg-orange-600 focus_shadow-outline focus_outline-none text-white font-bold py-2 px-4 mx-4 rounded'

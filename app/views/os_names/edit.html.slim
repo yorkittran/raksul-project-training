@@ -1,8 +1,6 @@
-h1 Editing os_name
+.flex.justify-center
+  .container.px-20.py-10
+    h1.text-4xl.font-bold.mb-8 Editting OS
+    == render 'form'
 
-== render 'form'
-
-=> link_to 'Show', @os_name
-'|
-=< link_to 'Back', os_names_path
-
+= javascript_include_tag 'upload'
