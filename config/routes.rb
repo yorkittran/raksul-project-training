@@ -2,6 +2,7 @@
 
 Rails.application.routes.draw do
   resources :phones
+  resources :models
   devise_for :users, controllers: {
     sessions: 'users/sessions',
     registrations: 'users/registrations',
