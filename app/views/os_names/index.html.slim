@@ -1,0 +1,19 @@
+h1 Listing os_names
+
+table
+  thead
+    tr
+      th
+      th
+      th
+
+  tbody
+    - @os_names.each do |os_name|
+      tr
+        td = link_to 'Show', os_name
+        td = link_to 'Edit', edit_os_name_path(os_name)
+        td = link_to 'Destroy', os_name, data: { confirm: 'Are you sure?' }, method: :delete
+
+br
+
+= link_to 'New Os name', new_os_name_path
