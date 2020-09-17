@@ -55,12 +55,14 @@ ActiveRecord::Schema.define(version: 2020_09_16_060638) do
   create_table "models", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name"
     t.bigint "manufacturer_id", null: false
+    t.bigint "os_name_id", null: false
     t.datetime "year_of_manufacture", null: false
     t.boolean "delete_flag", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["manufacturer_id"], name: "index_models_on_manufacturer_id"
     t.index ["name"], name: "index_models_on_name"
+    t.index ["os_name_id"], name: "index_models_on_os_name_id"
   end
 
   create_table "os_names", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -70,13 +72,11 @@ ActiveRecord::Schema.define(version: 2020_09_16_060638) do
   end
 
   create_table "os_versions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
-    t.bigint "os_name_id", null: false
     t.integer "major", null: false
     t.integer "minor", null: false
     t.integer "patch", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["os_name_id"], name: "index_os_versions_on_os_name_id"
   end
 
   create_table "phones", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -111,7 +111,7 @@ ActiveRecord::Schema.define(version: 2020_09_16_060638) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "models", "manufacturers"
-  add_foreign_key "os_versions", "os_names"
+  add_foreign_key "models", "os_names"
   add_foreign_key "phones", "body_colors"
   add_foreign_key "phones", "memories"
   add_foreign_key "phones", "models"
