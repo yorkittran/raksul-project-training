@@ -7,7 +7,7 @@
           li = message
 
   .md_flex.md_items-center.mb-6
-    = f.label :name, class: 'block text-gray-800 font-bold mb-1 md_mb-0 pr-4', for: 'name'
+    = f.label :name, class: 'block text-gray-800 font-bold mb-1 md_mb-0 pr-4 w-1-of-3', for: 'name'
     = f.text_field :name, autofocus: true, class: 'form-input w-full'
 
   = f.file_field :logo, id: 'hidden-input', class: 'hidden'

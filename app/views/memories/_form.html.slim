@@ -1,0 +1,17 @@
+= form_for @memory do |f|
+  - if @memory.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@memory.errors.count, "error")} prohibited this body color from being saved:"
+      ul
+        - @memory.errors.full_messages.each do |message|
+          li = message
+
+  .md_flex.md_items-center.mb-6
+    = f.label :amount, class: 'block text-gray-800 font-bold mb-1 md_mb-0 pr-4 w-1-of-3', for: 'amount'
+    = f.number_field :amount, autofocus: true, class: 'form-input w-full'
+  .md_flex.md_items-center.mb-6
+    = f.label :display_name, class: 'block text-gray-800 font-bold mb-1 md_mb-0 pr-4 w-1-of-3', for: 'display_name'
+    = f.text_field :display_name, autofocus: true, class: 'form-input w-full'
+  .md_flex.md_items-center.my-10.justify-center
+    = link_to 'Back', memories_path, class: 'hover_bg-gray-200 focus_shadow-outline focus_outline-none text-gray-800 font-bold py-2 px-4 mx-4 rounded'
+    = f.submit @submit_text, class: 'shadow bg-blue-500 hover_bg-blue-600 focus_shadow-outline focus_outline-none text-white font-bold py-2 px-4 mx-4 rounded'

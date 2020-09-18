@@ -8,14 +8,11 @@
 
   h1.text-xl.mb-6.font-bold Step 1 - Model and Color
   .md_flex.md_items-center.mb-6
-    .md_w-1-of-3
-      = f.label :name, class: 'block text-gray-800 font-bold md_text-right mb-1 md_mb-0 pr-4', for: 'model'
-    .md_w-1-of-3
-      = f.text_field :name, autofocus: true, class: 'form-input w-full'
+    = f.label :name, class: 'block text-gray-800 font-bold md_text-right mb-1 md_mb-0 pr-4 w-1-of-3', for: 'model'
+    = f.text_field :name, autofocus: true, class: 'form-input w-full'
   .md_flex.md_items-center.mb-6
-    .md_w-1-of-3
-      = f.label 'Year of Manufacture', class: 'block text-gray-800 font-bold md_text-right mb-1 md_mb-0 pr-4', for: 'year_of_manufacture'
-    = f.select :year_of_manufacture, @years, {} , { class: 'form-select w-full md_w-1-of-3' }
+    = f.label 'Year of Manufacture', class: 'block text-gray-800 font-bold md_text-right mb-1 md_mb-0 pr-4  w-1-of-3', for: 'year_of_manufacture'
+    = f.select :year_of_manufacture, @years, {} , { class: 'form-select w-full' }
 
   h1.text-xl.mb-6.font-bold.my-10 Step 2 - Manufacturer
   = f.hidden_field :manufacturer_id
