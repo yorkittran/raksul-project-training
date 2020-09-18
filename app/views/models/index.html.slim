@@ -1,19 +1,49 @@
-h1 Listing models
+.flex.justify-center
+  .container.px-20.py-10
+    h1.text-4xl.font-bold.mb-8 Listing models
+    #recipients.p-8.mt-6.lg_mt-0.rounded.shadow-xl.bg-white
+      table#example.stripe.hover style=("width:100%; padding-top: 1em;  padding-bottom: 1em;")
+        thead
+          tr
+            th data-priority="1" Name
+            th data-priority="2" Manufacturer
+            th data-priority="3" OS
+            th data-priority="4" Year of Manufacture
+            th Active
+            th Action
+        tbody
+          - @models.each do |model|
+            tr
+              td
+                = model.name
+              td
+                = model.manufacturer_name
+              td.text-right
+                = model.os_name_name
+              td.text-right
+                = model.year_of_manufacture
+              td.text-center
+                label.flex.justify-center.cursor-pointer for="toogleA"
+                  .relative
+                    input#toogleA.hidden type="checkbox" /
+                    .toggle__line.w-10.h-4.bg-gray-400.rounded-full.shadow-inner
+                    .toggle__dot.absolute.w-6.h-6.bg-white.rounded-full.shadow
 
-table
-  thead
-    tr
-      th
-      th
-      th
+              td.text-center
+                = link_to 'Detail', model_path(model.id), class: 'shadow bg-gray-500 hover_bg-gray-600 focus_shadow-outline focus_outline-none text-white font-bold py-2 px-4 mx-2 rounded'
+                = link_to 'Edit', edit_model_path(model.id), class: 'shadow bg-orange-500 hover_bg-orange-600 focus_shadow-outline focus_outline-none text-white font-bold py-2 px-4 mx-2 rounded'
+      = link_to 'Create Model', new_model_path, class: 'shadow bg-blue-500 hover_bg-blue-600 focus_shadow-outline focus_outline-none text-white font-bold py-2 px-4 rounded'
 
-  tbody
-    - @models.each do |model|
-      tr
-        td = link_to 'Show', model
-        td = link_to 'Edit', edit_model_path(model)
-        td = link_to 'Destroy', model, data: { confirm: 'Are you sure?' }, method: :delete
 
-br
-
-= link_to 'New Model', new_model_path
+script src="https://code.jquery.com/jquery-3.4.1.min.js" type="text/javascript"
+script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"
+script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"
+javascript:
+  $(document).ready(function() {
+  	var table = $('#example').DataTable({
+      responsive: true,
+      columnDefs: [
+        { orderable: false, targets: [4, 5] }
+      ]
+    }).columns.adjust().responsive.recalc();
+  });
