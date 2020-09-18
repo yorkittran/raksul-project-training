@@ -35,15 +35,11 @@
       = link_to 'Create Model', new_model_path, class: 'shadow bg-blue-500 hover_bg-blue-600 focus_shadow-outline focus_outline-none text-white font-bold py-2 px-4 rounded'
 
 
-script src="https://code.jquery.com/jquery-3.4.1.min.js" type="text/javascript"
-script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"
-script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"
-javascript:
-  $(document).ready(function() {
-  	var table = $('#example').DataTable({
-      responsive: true,
-      columnDefs: [
-        { orderable: false, targets: [4, 5] }
-      ]
-    }).columns.adjust().responsive.recalc();
-  });
+= javascript_include_tag 'datatable/jquery-3.4.1.min.js'
+= javascript_include_tag 'datatable/jquery.dataTables.js'
+= javascript_include_tag 'datatable/dataTables.responsive.js'
+= javascript_pack_tag 'datatable'
+
+- content_for :stylesheet_page do
+  = stylesheet_link_tag 'datatable/jquery.dataTables'
+  = stylesheet_link_tag 'datatable/responsive.dataTables'
