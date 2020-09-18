@@ -1,5 +1,6 @@
 class ModelsController < ApplicationController
   before_action :set_model, only: [:show, :edit, :update, :destroy]
+  before_action :get_necessary_data, only: [:new, :edit]
 
   # GET /models
   # GET /models.json
@@ -14,17 +15,11 @@ class ModelsController < ApplicationController
 
   # GET /models/new
   def new
-    @manufacturers = Manufacturer.all
-    @os_names = OsName.all
     @model = Model.new
-    @years = (Date.today.year - 5..Date.today.year).to_a.reverse
   end
 
   # GET /models/1/edit
   def edit
-    @manufacturers = Manufacturer.all
-    @os_names = OsName.all
-    @years = (Date.today.year - 5..Date.today.year).to_a.reverse
   end
 
   # POST /models
@@ -76,5 +71,11 @@ class ModelsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def model_params
       params.require(:model).permit(:name, :manufacturer_id, :os_name_id, :year_of_manufacture)
+    end
+
+    def get_necessary_data
+      @manufacturers = Manufacturer.all
+      @os_names = OsName.all
+      @years = (Date.today.year - 10..Date.today.year).to_a.reverse
     end
 end
