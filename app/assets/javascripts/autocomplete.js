@@ -1,3 +1,4 @@
+autocomplete(document.getElementById("model_name"), models);
 function autocomplete(inp, arr) {
     /*the autocomplete function takes two arguments,
     the text field element and an array of possible autocompleted values:*/
@@ -105,14 +106,15 @@ function autocomplete(inp, arr) {
 
 function disableAddButton(inp) {
     if (inp.id === "model_name") {
-        document.getElementById("add").classList.add("opacity-50")
-        document.getElementById("add").classList.add("cursor-not-allowed")
+        document.getElementById("add-button").classList.add("opacity-50")
+        document.getElementById("add-button").classList.add("cursor-not-allowed")
     }
 }
 
 function enableAddButton(inp) {
     if (inp.id === "model_name") {
-        document.getElementById("add").classList.remove("opacity-50")
-        document.getElementById("add").classList.remove("cursor-not-allowed")
+        current_phone = inp.value
+        document.getElementById("add-button").classList.remove("opacity-50")
+        document.getElementById("add-button").classList.remove("cursor-not-allowed")
     }
 }
