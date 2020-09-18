@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :models
   resources :manufacturers
   resources :os_names
+  resources :body_colors
   devise_for :users, controllers: {
     sessions: 'users/sessions',
     registrations: 'users/registrations',
