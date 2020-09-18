@@ -17,12 +17,3 @@ document.querySelectorAll(".os").forEach(item => {
     document.getElementById("model_os_name_id").setAttribute("value", item.getAttribute("alt"))
   })
 })
-
-document.querySelectorAll(".memory").forEach(item => {
-  item.addEventListener("click", event => {
-    document.querySelectorAll(".memory").forEach(item => {
-      item.classList.remove("border-custom-triggered")
-    })
-    item.classList.add("border-custom-triggered")
-  })
-})

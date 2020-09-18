@@ -8,7 +8,7 @@
 
   h1.text-xl.mb-6.font-bold Step 1 - Model and Color
   .md_flex.md_items-center.mb-6
-    = f.label :name, class: 'block text-gray-800 font-bold md_text-right mb-1 md_mb-0 pr-4 w-1-of-3', for: 'model'
+    = f.label :name, class: 'block text-gray-800 font-bold md_text-right mb-1 md_mb-0 pr-4 w-1-of-3', for: 'name'
     = f.text_field :name, autofocus: true, class: 'form-input w-full'
   .md_flex.md_items-center.mb-6
     = f.label 'Year of Manufacture', class: 'block text-gray-800 font-bold md_text-right mb-1 md_mb-0 pr-4  w-1-of-3', for: 'year_of_manufacture'
@@ -18,7 +18,7 @@
   = f.hidden_field :manufacturer_id
   .grid.grid-cols-3.gap-4
     - @manufacturers.each do |manufacturer|
-        div#
+        div
           = image_tag manufacturer.logo, size: "200x200", class: "manufacturer rounded-md align-middle border-custom mx-auto", alt: manufacturer.id
           p.text-xl.text-center.pt-4
             = manufacturer.name

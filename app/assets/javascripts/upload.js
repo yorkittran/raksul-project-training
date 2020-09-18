@@ -98,19 +98,3 @@ gallery.onclick = ({ target }) => {
     delete FILES[ou];
   }
 };
-
-// // print all selected files
-// document.getElementById("submit").onclick = () => {
-//   alert(`Submitted Files:\n${JSON.stringify(FILES)}`);
-//   console.log(FILES);
-// };
-
-// // clear entire selection
-// document.getElementById("cancel").onclick = () => {
-//   while (gallery.children.length > 0) {
-//     gallery.lastChild.remove();
-//   }
-//   FILES = {};
-//   empty.classList.remove("hidden");
-//   gallery.append(empty);
-// };

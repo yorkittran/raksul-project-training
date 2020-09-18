@@ -71,3 +71,37 @@ input:checked ~ .toggle__dot {
     transform: translateX(100%);
     background-color: #4299e1;
 }
+
+/* Autocomplete */
+.autocomplete {
+    position: relative;
+    display: inline-block;
+}
+
+.autocomplete-items {
+    position: absolute;
+    border: 1px solid #e2e8f0;
+    border-bottom: none;
+    border-top: none;
+    z-index: 99;
+    top: 100%;
+    left: 0;
+    right: 0;
+}
+
+.autocomplete-items div {
+    padding: 0.5rem;
+    cursor: pointer;
+    background-color: #fff;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.autocomplete-items div:hover {
+    background-color: #edf2f7;
+}
+
+.autocomplete-active {
+    /*when navigating through the items using the arrow keys:*/
+    background-color: #63b3ed !important;
+    color: #ffffff;
+  }

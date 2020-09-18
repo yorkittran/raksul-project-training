@@ -1,5 +1,6 @@
 class PhonesController < ApplicationController
   before_action :set_phone, only: [:show, :edit, :update, :destroy]
+  before_action :get_necessary_data, only: [:new, :edit]
 
   # GET /phones
   # GET /phones.json
@@ -70,5 +71,11 @@ class PhonesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def phone_params
       params.fetch(:phone, {})
+    end
+
+    def get_necessary_data
+      @models = Model.pluck(:name).to_json.html_safe
+      @body_colors = BodyColor.pluck(:name).to_json.html_safe
+      @memories = Memory.pluck(:display_name).to_json.html_safe
     end
 end
