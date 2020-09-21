@@ -2,17 +2,18 @@ body
   header.mb-4
     nav#header.w-full.z-30.top-0.py-1
       .w-full.container.mx-auto.flex.flex-wrap.items-center.justify-between.mt-0.px-6.py-3
-        .hidden.md_flex.md_items-center.md_w-auto.w-full.order-3.md_order-1
-          nav
-            ul.md_flex.items-center.justify-between.text-base.pt-4.md_pt-0
-              li
-                = link_to 'Warehouse', phones_path, class: 'no-underline hover_no-underline hover_text-blue-500 mx-4'
-              li
-                = link_to 'Models', models_path, class: 'no-underline hover_no-underline hover_text-green-500 mx-4'
-              li
-                = link_to 'OS', os_names_path, class: 'no-underline hover_no-underline hover_text-pink-500 mx-4'
-              li
-                = link_to 'Manufacturer', manufacturers_path, class: 'no-underline hover_no-underline hover_text-yellow-500 mx-4'
+        - if user_signed_in?
+          .hidden.md_flex.md_items-center.md_w-auto.w-full.order-3.md_order-1
+            nav
+              ul.md_flex.items-center.justify-between.text-base.pt-4.md_pt-0
+                li
+                  = link_to 'Warehouse', phones_path, class: 'no-underline hover_no-underline hover_text-blue-500 mx-4'
+                li
+                  = link_to 'Models', models_path, class: 'no-underline hover_no-underline hover_text-green-500 mx-4'
+                li
+                  = link_to 'OS', os_names_path, class: 'no-underline hover_no-underline hover_text-pink-500 mx-4'
+                li
+                  = link_to 'Manufacturer', manufacturers_path, class: 'no-underline hover_no-underline hover_text-yellow-500 mx-4'
         .order-1.md_order-2
           = link_to 'NORDICS', root_path, class: 'flex items-center tracking-wide no-underline hover_no-underline font-bold text-gray-800 text-xl'
         #nav-content.order-2.md_order-3.flex.items-center.text-base
