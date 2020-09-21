@@ -75,7 +75,7 @@ class PhonesController < ApplicationController
           price: inventory_params[:price][key]
         ).first_or_initialize
 
-        @phone = phone
+        # @phone = phone
         unless phone.save
           success = false
         else
@@ -83,6 +83,7 @@ class PhonesController < ApplicationController
             inventory.update(quantity: inventory.quantity + inventory_params[:quantity][key].to_i)
           else
             inventory.update(quantity: inventory_params[:quantity][key])
+            inventory.save
           end
         end
       end

@@ -4,7 +4,7 @@
     #recipients.p-8.mt-6.lg_mt-0.rounded.shadow-xl.bg-white
       table#example.stripe.hover style=("width:100%; padding-top: 1em;  padding-bottom: 1em;")
         thead
-          tr
+          tr.text-left
             th data-priority="1" Model
             th data-priority="2" Memory
             th data-priority="4" Price
@@ -17,11 +17,11 @@
                 = item[:model_name]
               td
                 = item[:memory_range]
-              td.
+              td
                 = item[:price_range]
-              td.text-right
+              td
                 = item[:total_quantity]
-              td.text-center
+              td
                 = link_to 'Detail', model_path(item[:model_id]), class: 'shadow bg-gray-500 hover_bg-gray-600 focus_shadow-outline focus_outline-none text-white font-bold py-2 px-4 mx-2 rounded'
       .my-4
         = link_to 'Import', new_phone_path, class: 'shadow bg-blue-500 hover_bg-blue-600 focus_shadow-outline focus_outline-none text-white font-bold py-4 px-8 rounded'
