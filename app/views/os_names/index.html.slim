@@ -1,6 +1,6 @@
 .flex.justify-center
   .container.px-20.py-10
-    h1.text-4xl.font-bold.mb-8 OS
+    h1.text-6xl.font-black.antialiased.mb-8 OS
     #recipients.p-8.mt-6.lg_mt-0.rounded.shadow-xl.bg-white
       table#example.stripe.hover style=("width:100%; padding-top: 1em;  padding-bottom: 1em;")
         thead
@@ -15,7 +15,8 @@
               td.text-center
                 = link_to 'Detail', os_name_path(os_name.id), class: 'shadow bg-gray-500 hover_bg-gray-600 focus_shadow-outline focus_outline-none text-white font-bold py-2 px-4 mx-2 rounded'
                 = link_to 'Edit', edit_os_name_path(os_name.id), class: 'shadow bg-orange-500 hover_bg-orange-600 focus_shadow-outline focus_outline-none text-white font-bold py-2 px-4 mx-2 rounded'
-      = link_to 'Create OS', new_os_name_path, class: 'shadow bg-blue-500 hover_bg-blue-600 focus_shadow-outline focus_outline-none text-white font-bold py-2 px-4 rounded'
+      .my-4
+        = link_to 'Create OS', new_os_name_path, class: 'shadow bg-blue-500 hover_bg-blue-600 focus_shadow-outline focus_outline-none text-white font-bold py-4 px-8 rounded'
 
 = javascript_include_tag 'datatable/jquery-3.4.1.min.js'
 = javascript_include_tag 'datatable/jquery.dataTables.js'
