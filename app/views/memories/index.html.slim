@@ -1,6 +1,6 @@
 .flex.justify-center
   .container.px-20.py-10
-    h1.text-4xl.font-bold.mb-8 Listing memories
+    h1.text-4xl.font-bold.mb-8 Memories
     #recipients.p-8.mt-6.lg_mt-0.rounded.shadow-xl.bg-white
       table#example.stripe.hover style=("width:100%; padding-top: 1em;  padding-bottom: 1em;")
         thead
@@ -23,7 +23,7 @@
 = javascript_include_tag 'datatable/jquery-3.4.1.min.js'
 = javascript_include_tag 'datatable/jquery.dataTables.js'
 = javascript_include_tag 'datatable/dataTables.responsive.js'
-= javascript_pack_tag 'datatable'
+= javascript_include_tag 'datatable'
 
 - content_for :stylesheet_page do
   = stylesheet_link_tag 'datatable/jquery.dataTables'
