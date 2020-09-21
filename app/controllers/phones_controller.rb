@@ -61,26 +61,29 @@ class PhonesController < ApplicationController
         patch: os_version_params[:patch][key]
       ).first_or_initialize
 
-      phone = Phone.where(
-        user_id: current_user.id,
-        body_color_id: body_color.id,
-        memory_id: memory.id,
-        os_version_id: os_version.id,
-        model_id: model.id
-      ).first_or_initialize
+      if body_color.save && memory.save && os_version.save
+        phone = Phone.where(
+          user_id: current_user.id,
+          body_color_id: body_color.id,
+          memory_id: memory.id,
+          os_version_id: os_version.id,
+          model_id: model.id
+        ).first_or_initialize
 
-      inventory = Inventory.where(
-        phone_id: phone.id,
-        price: inventory_params[:price][key]
-      ).first_or_initialize
+        inventory = Inventory.where(
+          phone_id: phone.id,
+          price: inventory_params[:price][key]
+        ).first_or_initialize
 
-      unless body_color.save && memory.save && os_version.save && phone.save
-        success = false
-      else
-        if Inventory.exists?(id: inventory.id)
-          inventory.update(quantity: inventory.quantity + inventory_params[:quantity][key].to_i)
+        @phone = phone
+        unless phone.save
+          success = false
         else
-          inventory.update(quantity: inventory_params[:quantity][key])
+          if Inventory.exists?(id: inventory.id)
+            inventory.update(quantity: inventory.quantity + inventory_params[:quantity][key].to_i)
+          else
+            inventory.update(quantity: inventory_params[:quantity][key])
+          end
         end
       end
     end
