@@ -25,15 +25,51 @@ class PhonesController < ApplicationController
   # POST /phones
   # POST /phones.json
   def create
-    @phone = Phone.new(phone_params)
+    success = true
+    model_params[:name].each do |key, value|
+      model = Model.where(name: value).first
+      body_color = BodyColor.where(name: body_color_params[:name][key]).first_or_initialize
+      memory = Memory.where(
+        amount: memory_params[:amount][key],
+        display_name: memory_params[:display_name][key]
+      ).first_or_initialize
+      os_version = OsVersion.where(
+        major: os_version_params[:major][key],
+        minor: os_version_params[:minor][key],
+        patch: os_version_params[:patch][key]
+      ).first_or_initialize
+
+      phone = Phone.where(
+        user_id: current_user.id,
+        body_color_id: body_color.id,
+        memory_id: memory.id,
+        os_version_id: os_version.id,
+        model_id: model.id
+      ).first_or_initialize
+
+      inventory = Inventory.where(
+        phone_id: phone.id,
+        price: inventory_params[:price][key]
+      ).first_or_initialize
+
+      unless body_color.save && memory.save && os_version.save && phone.save
+        success = false
+      else
+        if Inventory.exists?(id: inventory.id)
+          inventory.update(quantity: inventory.quantity + inventory_params[:quantity][key].to_i)
+        else
+          inventory.update(quantity: inventory_params[:quantity][key])
+        end
+      end
+    end
 
     respond_to do |format|
-      if @phone.save
-        format.html { redirect_to @phone, notice: 'Phone was successfully created.' }
-        format.json { render :show, status: :created, location: @phone }
+      if success
+        format.html { redirect_to phones_path, notice: 'Phone was successfully imported.' }
+        format.json { render :index, status: :created, location: phones_path }
       else
         format.html { render :new }
-        format.json { render json: @phone.errors, status: :unprocessable_entity }
+        format.json { render json: errors, status: :unprocessable_entity }
       end
     end
   end
@@ -68,9 +104,34 @@ class PhonesController < ApplicationController
       @phone = Phone.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
-    def phone_params
-      params.fetch(:phone, {})
+    # Get list of name in model param.
+    def model_params
+      params.require(:model)
+    end
+
+    # Get list of name in body_color param.
+    def body_color_params
+      params.require(:body_color)
+    end
+
+    # Get list of name in memory param.
+    def memory_params
+      params.require(:memory)
+    end
+
+    # Get list of name in inventory param.
+    def inventory_params
+      params.require(:inventory)
+    end
+
+    # Get list of name in os_version param.
+    def os_version_params
+      params.require(:os_version)
+    end
+
+    # Get list of name in image param.
+    def image_params
+      params.require(:image)
     end
 
     def get_necessary_data
