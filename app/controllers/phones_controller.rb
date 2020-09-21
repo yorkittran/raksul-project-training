@@ -5,7 +5,29 @@ class PhonesController < ApplicationController
   # GET /phones
   # GET /phones.json
   def index
-    @phones = Phone.all
+    @warehouse = []
+    models = Phone.select(:model_id).group(:model_id)
+    models.each do |model|
+      item = {}
+      item[:model_id] = model.model_id
+      item[:model_name] = Model.find(model.model_id).name
+      minimum_memory = Memory.where(amount: Phone.joins(:memory).where(model_id: model.model_id).minimum(:amount)).pick(:display_name)
+      maximum_memory = Memory.where(amount: Phone.joins(:memory).where(model_id: model.model_id).maximum(:amount)).pick(:display_name)
+      minimum_price = Inventory.joins(:phone).where(phone: Phone.where(model_id: model.model_id)).minimum(:price)
+      maximum_price = Inventory.joins(:phone).where(phone: Phone.where(model_id: model.model_id)).maximum(:price)
+      item[:total_quantity] = Inventory.joins(:phone).where(phone: Phone.where(model_id: model.model_id)).sum(:quantity)
+      if minimum_memory == maximum_memory
+        item[:memory_range] = maximum_memory
+      else
+        item[:memory_range] = minimum_memory + " - " + maximum_memory
+      end
+      if minimum_price == maximum_price
+        item[:price_range] = "#{maximum_price}$"
+      else
+        item[:price_range] = "#{minimum_price}$ - #{maximum_price}$"
+      end
+      @warehouse << item
+    end
   end
 
   # GET /phones/1
@@ -69,7 +91,7 @@ class PhonesController < ApplicationController
         format.json { render :index, status: :created, location: phones_path }
       else
         format.html { render :new }
-        format.json { render json: errors, status: :unprocessable_entity }
+        format.json { render json: "errors", status: :unprocessable_entity }
       end
     end
   end
@@ -127,11 +149,6 @@ class PhonesController < ApplicationController
     # Get list of name in os_version param.
     def os_version_params
       params.require(:os_version)
-    end
-
-    # Get list of name in image param.
-    def image_params
-      params.require(:image)
     end
 
     def get_necessary_data

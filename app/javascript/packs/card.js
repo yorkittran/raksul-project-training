@@ -36,7 +36,6 @@ document.getElementById("add-button").addEventListener("click", function() {
         +'<div class="w-1-of-2"><label class="text-gray-700 font-bold" for="price_'+ index +'">Price</label><input type="number" name="inventory[price]['+ index +']" id="price_'+ index +'" value="0" class="form-input w-full mt-1" min="0"></div>'
       +'</div>'
     +'</div>'
-    +'<input class="mt-4" type="file" name="image['+ index +']" id="image">'
   +'</main>';
   buttonSection.insertAdjacentHTML('beforebegin', card);
 
