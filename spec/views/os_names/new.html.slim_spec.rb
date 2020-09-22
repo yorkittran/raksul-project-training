@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe "os_names/new", type: :view do
-  before(:each) do
-    assign(:os_name, OsName.new())
+  before do
+    assign(:os_name, OsName.new)
   end
 
   it "renders new os_name form" do

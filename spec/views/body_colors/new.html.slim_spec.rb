@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe "body_colors/new", type: :view do
-  before(:each) do
-    assign(:body_color, BodyColor.new())
+  before do
+    assign(:body_color, BodyColor.new)
   end
 
   it "renders new body_color form" do

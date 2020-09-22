@@ -1,6 +1,6 @@
 class OsNamesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_os_name, only: [:show, :edit, :update, :destroy]
+  before_action :set_os_name, only: %i[show edit update destroy]
 
   # GET /os_names
   # GET /os_names.json
@@ -10,8 +10,7 @@ class OsNamesController < ApplicationController
 
   # GET /os_names/1
   # GET /os_names/1.json
-  def show
-  end
+  def show; end
 
   # GET /os_names/new
   def new
@@ -19,8 +18,7 @@ class OsNamesController < ApplicationController
   end
 
   # GET /os_names/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /os_names
   # POST /os_names.json
@@ -63,13 +61,14 @@ class OsNamesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_os_name
-      @os_name = OsName.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def os_name_params
-      params.require(:os_name).permit(:name, :logo)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_os_name
+    @os_name = OsName.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def os_name_params
+    params.require(:os_name).permit(:name, :logo)
+  end
 end

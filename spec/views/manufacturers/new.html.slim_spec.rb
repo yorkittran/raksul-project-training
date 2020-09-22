@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe "manufacturers/new", type: :view do
-  before(:each) do
-    assign(:manufacturer, Manufacturer.new())
+  before do
+    assign(:manufacturer, Manufacturer.new)
   end
 
   it "renders new manufacturer form" do

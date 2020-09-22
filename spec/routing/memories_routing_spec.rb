@@ -18,7 +18,6 @@ RSpec.describe MemoriesController, type: :routing do
       expect(get: "/memories/1/edit").to route_to("memories#edit", id: "1")
     end
 
-
     it "routes to #create" do
       expect(post: "/memories").to route_to("memories#create")
     end

@@ -6,13 +6,9 @@ class Manufacturer < ApplicationRecord
   def acceptable_image
     return unless logo.attached?
 
-    unless logo.byte_size <= 5.megabytes
-      errors.add(:logo, "is too big")
-    end
+    errors.add(:logo, "is too big") unless logo.byte_size <= 5.megabytes
 
     acceptable_types = ["image/jpeg", "image/png"]
-    unless acceptable_types.include?(logo.content_type)
-      errors.add(:logo, "must be a JPEG or PNG")
-    end
+    errors.add(:logo, "must be a JPEG or PNG") unless acceptable_types.include?(logo.content_type)
   end
 end

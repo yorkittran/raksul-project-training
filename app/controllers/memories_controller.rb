@@ -1,6 +1,6 @@
 class MemoriesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_memory, only: [:show, :edit, :update, :destroy]
+  before_action :set_memory, only: %i[show edit update destroy]
 
   # GET /memories
   # GET /memories.json
@@ -10,8 +10,7 @@ class MemoriesController < ApplicationController
 
   # GET /memories/1
   # GET /memories/1.json
-  def show
-  end
+  def show; end
 
   # GET /memories/new
   def new
@@ -19,8 +18,7 @@ class MemoriesController < ApplicationController
   end
 
   # GET /memories/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /memories
   # POST /memories.json
@@ -63,13 +61,14 @@ class MemoriesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_memory
-      @memory = Memory.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def memory_params
-      params.require(:memory).permit(:amount, :display_name)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_memory
+    @memory = Memory.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def memory_params
+    params.require(:memory).permit(:amount, :display_name)
+  end
 end

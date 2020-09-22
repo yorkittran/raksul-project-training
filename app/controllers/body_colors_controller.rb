@@ -1,6 +1,6 @@
 class BodyColorsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_body_color, only: [:show, :edit, :update, :destroy]
+  before_action :set_body_color, only: %i[show edit update destroy]
 
   # GET /body_colors
   # GET /body_colors.json
@@ -10,8 +10,7 @@ class BodyColorsController < ApplicationController
 
   # GET /body_colors/1
   # GET /body_colors/1.json
-  def show
-  end
+  def show; end
 
   # GET /body_colors/new
   def new
@@ -19,8 +18,7 @@ class BodyColorsController < ApplicationController
   end
 
   # GET /body_colors/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /body_colors
   # POST /body_colors.json
@@ -63,13 +61,14 @@ class BodyColorsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_body_color
-      @body_color = BodyColor.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def body_color_params
-      params.require(:body_color).permit(:name)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_body_color
+    @body_color = BodyColor.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def body_color_params
+    params.require(:body_color).permit(:name)
+  end
 end

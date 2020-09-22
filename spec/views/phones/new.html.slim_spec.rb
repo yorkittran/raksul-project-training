@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe "phones/new", type: :view do
-  before(:each) do
-    assign(:phone, Phone.new())
+  before do
+    assign(:phone, Phone.new)
   end
 
   it "renders new phone form" do

@@ -18,7 +18,6 @@ RSpec.describe BodyColorsController, type: :routing do
       expect(get: "/body_colors/1/edit").to route_to("body_colors#edit", id: "1")
     end
 
-
     it "routes to #create" do
       expect(post: "/body_colors").to route_to("body_colors#create")
     end

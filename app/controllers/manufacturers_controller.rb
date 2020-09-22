@@ -1,6 +1,6 @@
 class ManufacturersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_manufacturer, only: [:show, :edit, :update, :destroy]
+  before_action :set_manufacturer, only: %i[show edit update destroy]
 
   # GET /manufacturers
   # GET /manufacturers.json
@@ -10,8 +10,7 @@ class ManufacturersController < ApplicationController
 
   # GET /manufacturers/1
   # GET /manufacturers/1.json
-  def show
-  end
+  def show; end
 
   # GET /manufacturers/new
   def new
@@ -19,8 +18,7 @@ class ManufacturersController < ApplicationController
   end
 
   # GET /manufacturers/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /manufacturers
   # POST /manufacturers.json
@@ -63,13 +61,14 @@ class ManufacturersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_manufacturer
-      @manufacturer = Manufacturer.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def manufacturer_params
-      params.require(:manufacturer).permit(:name, :logo)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_manufacturer
+    @manufacturer = Manufacturer.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def manufacturer_params
+    params.require(:manufacturer).permit(:name, :logo)
+  end
 end

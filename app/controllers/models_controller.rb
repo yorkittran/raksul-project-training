@@ -1,7 +1,7 @@
 class ModelsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_model, only: [:show, :edit, :update, :destroy, :restore]
-  before_action :get_necessary_data, only: [:new, :edit]
+  before_action :set_model, only: %i[show edit update destroy restore]
+  before_action :necessary_data, only: %i[new edit]
 
   # GET /models
   # GET /models.json
@@ -21,8 +21,7 @@ class ModelsController < ApplicationController
   end
 
   # GET /models/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /models
   # POST /models.json
@@ -75,19 +74,20 @@ class ModelsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_model
-      @model = Model.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def model_params
-      params.require(:model).permit(:name, :manufacturer_id, :os_name_id, :year_of_manufacture)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_model
+    @model = Model.find(params[:id])
+  end
 
-    def get_necessary_data
-      @manufacturers = Manufacturer.all
-      @os_names = OsName.all
-      @years = (Date.today.year - 10..Date.today.year).to_a.reverse
-    end
+  # Only allow a list of trusted parameters through.
+  def model_params
+    params.require(:model).permit(:name, :manufacturer_id, :os_name_id, :year_of_manufacture)
+  end
+
+  def necessary_data
+    @manufacturers = Manufacturer.all
+    @os_names = OsName.all
+    @years = (Date.today.year - 10..Date.today.year).to_a.reverse
+  end
 end

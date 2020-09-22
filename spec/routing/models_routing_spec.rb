@@ -18,7 +18,6 @@ RSpec.describe ModelsController, type: :routing do
       expect(get: "/models/1/edit").to route_to("models#edit", id: "1")
     end
 
-
     it "routes to #create" do
       expect(post: "/models").to route_to("models#create")
     end
