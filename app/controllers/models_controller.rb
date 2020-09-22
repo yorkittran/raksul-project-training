@@ -11,6 +11,7 @@ class ModelsController < ApplicationController
   # GET /models/1
   # GET /models/1.json
   def show
+    @phones = Phone.where(model: params[:id])
   end
 
   # GET /models/new

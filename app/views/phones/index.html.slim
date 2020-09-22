@@ -1,14 +1,14 @@
 .flex.justify-center
   .container.px-20.py-10
     h1.text-6xl.font-black.antialiased.mb-8 Warehouse
-    #recipients.p-8.mt-6.lg_mt-0.rounded.shadow-xl.bg-white
+    #recipients.p-8.mt-6.lg_mt-0.rounded.shadow-xl.bg-white.text-left
       table#example.stripe.hover style=("width:100%; padding-top: 1em;  padding-bottom: 1em;")
         thead
           tr.text-left
             th data-priority="1" Model
             th data-priority="2" Memory
-            th data-priority="4" Price
-            th data-priority="3" Quantity
+            th data-priority="3" Price
+            th data-priority="4" Quantity
             th Action
         tbody
           - @warehouse.each do |item|

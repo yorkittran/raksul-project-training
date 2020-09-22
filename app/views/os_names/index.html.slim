@@ -1,7 +1,7 @@
 .flex.justify-center
   .container.px-20.py-10
     h1.text-6xl.font-black.antialiased.mb-8 OS
-    #recipients.p-8.mt-6.lg_mt-0.rounded.shadow-xl.bg-white
+    #recipients.p-8.mt-6.lg_mt-0.rounded.shadow-xl.bg-white.text-left
       table#example.stripe.hover style=("width:100%; padding-top: 1em;  padding-bottom: 1em;")
         thead
           tr
@@ -12,7 +12,7 @@
             tr
               td
                 = os_name.name
-              td.text-center
+              td
                 = link_to 'Detail', os_name_path(os_name.id), class: 'shadow bg-gray-500 hover_bg-gray-600 focus_shadow-outline focus_outline-none text-white font-bold py-2 px-4 mx-2 rounded'
                 = link_to 'Edit', edit_os_name_path(os_name.id), class: 'shadow bg-orange-500 hover_bg-orange-600 focus_shadow-outline focus_outline-none text-white font-bold py-2 px-4 mx-2 rounded'
       .my-4
