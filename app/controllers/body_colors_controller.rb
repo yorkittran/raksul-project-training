@@ -1,4 +1,5 @@
 class BodyColorsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_body_color, only: [:show, :edit, :update, :destroy]
 
   # GET /body_colors

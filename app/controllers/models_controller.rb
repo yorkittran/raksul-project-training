@@ -1,4 +1,5 @@
 class ModelsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_model, only: [:show, :edit, :update, :destroy]
   before_action :get_necessary_data, only: [:new, :edit]
 

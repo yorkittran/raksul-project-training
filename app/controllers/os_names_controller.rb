@@ -1,4 +1,5 @@
 class OsNamesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_os_name, only: [:show, :edit, :update, :destroy]
 
   # GET /os_names
