@@ -5,10 +5,12 @@ class CreateModels < ActiveRecord::Migration[6.0]
       t.references :manufacturer, null: false, foreign_key: true
       t.references :os_name, null: false, foreign_key: true
       t.integer :year_of_manufacture, null: false
-      t.boolean :delete_flag, null: false, default: 0
+      t.datetime :discarded_at
 
       t.timestamps
+      t.index :name
+      t.index :discarded_at
+
     end
-    add_index :models, :name
   end
 end

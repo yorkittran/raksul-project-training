@@ -88,6 +88,8 @@ GEM
       responders
       warden (~> 1.2.3)
     diff-lcs (1.4.4)
+    discard (1.2.0)
+      activerecord (>= 4.2, < 7)
     erubi (1.9.0)
     factory_bot (6.1.0)
       activesupport (>= 5.0.0)
@@ -302,6 +304,7 @@ DEPENDENCIES
   byebug
   capybara (>= 2.15)
   devise (~> 4.7, >= 4.7.2)
+  discard (~> 1.2)
   factory_bot_rails (~> 6.1)
   faker (~> 2.13)
   image_processing (~> 1.2)

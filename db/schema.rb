@@ -43,8 +43,10 @@ ActiveRecord::Schema.define(version: 2020_09_21_031251) do
     t.bigint "phone_id", null: false
     t.decimal "price", precision: 10
     t.integer "quantity"
+    t.datetime "discarded_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["discarded_at"], name: "index_inventories_on_discarded_at"
     t.index ["phone_id", "price"], name: "index_inventories_on_phone_id_and_price", unique: true
     t.index ["phone_id"], name: "index_inventories_on_phone_id"
   end
@@ -67,9 +69,10 @@ ActiveRecord::Schema.define(version: 2020_09_21_031251) do
     t.bigint "manufacturer_id", null: false
     t.bigint "os_name_id", null: false
     t.integer "year_of_manufacture", null: false
-    t.boolean "delete_flag", default: false, null: false
+    t.datetime "discarded_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["discarded_at"], name: "index_models_on_discarded_at"
     t.index ["manufacturer_id"], name: "index_models_on_manufacturer_id"
     t.index ["name"], name: "index_models_on_name"
     t.index ["os_name_id"], name: "index_models_on_os_name_id"
@@ -95,10 +98,11 @@ ActiveRecord::Schema.define(version: 2020_09_21_031251) do
     t.bigint "os_version_id", null: false
     t.bigint "model_id", null: false
     t.bigint "user_id", null: false
-    t.boolean "delete_flag", default: false, null: false
+    t.datetime "discarded_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["body_color_id"], name: "index_phones_on_body_color_id"
+    t.index ["discarded_at"], name: "index_phones_on_discarded_at"
     t.index ["memory_id"], name: "index_phones_on_memory_id"
     t.index ["model_id"], name: "index_phones_on_model_id"
     t.index ["os_version_id"], name: "index_phones_on_os_version_id"
