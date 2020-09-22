@@ -29,6 +29,8 @@ gem 'bcrypt', '~> 3.1.7'
 
 # More gems
 gem 'devise', '~> 4.7', '>= 4.7.2'
+gem 'discard', '~> 1.2'
+gem 'image_processing', '~> 1.2'
 gem 'pry-byebug', '~> 3.4'
 gem 'ransack', '~> 2.3', '>= 2.3.2'
 gem 'rubocop-rails', '~> 2.7', '>= 2.7.1'

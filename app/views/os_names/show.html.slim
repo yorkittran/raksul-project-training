@@ -1,0 +1,7 @@
+.flex.content-center.justify-center
+  .min-w-1-of-2.max-w-sm.p-10.rounded.shadow-xl.text-center
+    h2.text-3xl.font-bold.mb-8
+      = @os_name.name
+    = image_tag @os_name.logo.variant(resize_to_limit: [500, nil]), class: 'rounded md_flex md_items-center mx-auto'
+    = link_to 'Back', os_names_path, class: 'hover_bg-gray-200 focus_shadow-outline focus_outline-none text-gray-800 font-bold py-2 px-4 mx-2 my-10 rounded'
+    = link_to 'Edit', edit_os_name_path(@os_name), class: 'shadow bg-orange-500 hover_bg-orange-600 focus_shadow-outline focus_outline-none text-white font-bold py-2 px-4 mx-2 rounded'

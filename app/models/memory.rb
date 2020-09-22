@@ -1,3 +1,4 @@
 class Memory < ApplicationRecord
-  has_many :phones, dependent: :destroy
+  validates :amount, presence: true
+  validates :display_name, presence: true
 end

@@ -1,0 +1,26 @@
+= form_for @phone do |f|
+  - if @phone.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@phone.errors.count, "error")} prohibited this phone from being saved:"
+      ul
+        - @phone.errors.full_messages.each do |message|
+          li = message
+
+  .md_flex.md_items-center.mb-6
+    .autocomplete.w-1-of-3
+      input#model_name.form-input.w-full autofocus="autofocus" autocomplete="off" type="text"
+    button#add-button.shadow.bg-blue-500.hover_bg-blue-600.focus_shadow-outline.focus_outline-none.text-white.font-bold.py-2.px-4.mx-4.rounded.opacity-50.cursor-not-allowed type="button" Add
+
+  #button-section.md_flex.md_items-center.my-10.gap-4
+    = link_to 'Back', phones_path, class: 'hover_bg-gray-200 focus_shadow-outline focus_outline-none text-gray-800 font-bold py-2 px-4 rounded'
+    = f.submit 'Import', id: 'create-button', class: 'shadow bg-blue-500 hover_bg-blue-600 focus_shadow-outline focus_outline-none text-white font-bold py-4 px-8 rounded hidden'
+
+javascript:
+  var current_phone
+  var index = 0;
+  var models = #{@models}
+  var body_colors = #{@body_colors}
+  var memories = #{@memories}
+
+= javascript_include_tag 'autocomplete'
+= javascript_pack_tag 'card'
