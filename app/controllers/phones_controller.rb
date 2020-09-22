@@ -7,36 +7,10 @@ class PhonesController < ApplicationController
   # GET /phones.json
   def index
     @warehouse = {}
-
     inventories = Inventory.kept
     inventories.each do |inventory|
-      if @warehouse.key?(inventory.phone.model.id)
-        item = @warehouse[inventory.phone.model.id]
-        item[:quantity] += inventory.quantity
-
-        unless (item[:price_min] == inventory.price && item[:price_max] == inventory.price)
-          item[:price_min] = [item[:price_min], inventory.price].min
-          item[:price_max] = [item[:price_max], inventory.price].max
-          item[:price] = "#{item[:price_min]}$ - #{item[:price_max]}$"
-        end
-
-        unless (item[:memory_min] == inventory.phone.memory.amount && item[:memory_max] == inventory.phone.memory.amount)
-          item[:memory_min] = [item[:memory_min], inventory.phone.memory.amount].min
-          item[:memory_max] = [item[:memory_max], inventory.phone.memory.amount].max
-          item[:memory] = Memory.where(amount: item[:memory_min]).pick(:display_name) + " - " + Memory.where(amount: item[:memory_max]).pick(:display_name)
-        end
-      else
-        item = {}
-        item[:model_name] = inventory.phone.model.name
-        item[:quantity] = inventory.quantity
-        item[:price_min] = inventory.price
-        item[:price_max] = inventory.price
-        item[:price] = inventory.price
-        item[:memory_min] = inventory.phone.memory.amount
-        item[:memory_max] = inventory.phone.memory.amount
-        item[:memory] = inventory.phone.memory.display_name
-      end
-      @warehouse[inventory.phone.model.id] = item
+      @warehouse[inventory.phone.model.id] =
+        @warehouse.key?(inventory.phone.model.id) ? change_item(inventory) : init_item(inventory)
     end
   end
 
@@ -59,41 +33,10 @@ class PhonesController < ApplicationController
   def create
     success = true
     model_params[:name].each do |key, value|
-      model = Model.where(name: value).first
-      body_color = BodyColor.where(name: body_color_params[:name][key]).first_or_initialize
-      memory = Memory.where(
-        amount: memory_params[:amount][key],
-        display_name: memory_params[:display_name][key]
-      ).first_or_initialize
-      os_version = OsVersion.where(
-        major: os_version_params[:major][key],
-        minor: os_version_params[:minor][key],
-        patch: os_version_params[:patch][key]
-      ).first_or_initialize
-
-      if body_color.save && memory.save && os_version.save
-        phone = Phone.where(
-          user_id: current_user.id,
-          body_color_id: body_color.id,
-          memory_id: memory.id,
-          os_version_id: os_version.id,
-          model_id: model.id
-        ).first_or_initialize
-
-        inventory = Inventory.where(
-          phone_id: phone.id,
-          price: inventory_params[:price][key]
-        ).first_or_initialize
-
-        unless phone.save
+      if create_sub_record(key, value)
+        unless create_phone && create_inventory(key)
           success = false
-        else
-          if Inventory.exists?(id: inventory.id)
-            inventory.update(quantity: inventory.quantity + inventory_params[:quantity][key].to_i)
-          else
-            inventory.quantity = inventory_params[:quantity][key]
-            inventory.save
-          end
+          break
         end
       end
     end
@@ -164,9 +107,89 @@ class PhonesController < ApplicationController
       params.require(:os_version)
     end
 
+    # Set inventory data to a new item for hash
+    def init_item(inventory)
+      item = {}
+      item[:model_name] = inventory.phone.model.name
+      item[:quantity] = inventory.quantity
+      item[:price_min] = inventory.price
+      item[:price_max] = inventory.price
+      item[:price] = "#{inventory.price}$"
+      item[:memory_min] = inventory.phone.memory.amount
+      item[:memory_max] = inventory.phone.memory.amount
+      item[:memory] = inventory.phone.memory.display_name
+      item
+    end
+
+    # Update data for existed item in hash
+    def change_item(inventory)
+      item = @warehouse[inventory.phone.model.id]
+      item[:quantity] += inventory.quantity
+
+      unless (item[:price_min] == inventory.price && item[:price_max] == inventory.price)
+        item[:price_min] = [item[:price_min], inventory.price].min
+        item[:price_max] = [item[:price_max], inventory.price].max
+        item[:price] = "#{item[:price_min]}$ - #{item[:price_max]}$"
+      end
+
+      unless (item[:memory_min] == inventory.phone.memory.amount && item[:memory_max] == inventory.phone.memory.amount)
+        item[:memory_min] = [item[:memory_min], inventory.phone.memory.amount].min
+        item[:memory_max] = [item[:memory_max], inventory.phone.memory.amount].max
+        item[:memory] = Memory.where(amount: item[:memory_min]).pick(:display_name) + " - " + Memory.where(amount: item[:memory_max]).pick(:display_name)
+      end
+      item
+    end
+
+    # Get showing data
     def get_necessary_data
       @models = Model.pluck(:name).to_json.html_safe
       @body_colors = BodyColor.pluck(:name).to_json.html_safe
       @memories = Memory.pluck(:display_name).to_json.html_safe
+    end
+
+    # Create some record if not exist
+    def create_sub_record(key, value)
+      @model = Model.where(name: value).first
+      @body_color = BodyColor.where(name: body_color_params[:name][key]).first_or_initialize
+      @memory = Memory.where(
+        amount: memory_params[:amount][key],
+        display_name: memory_params[:display_name][key]
+      ).first_or_initialize
+      @os_version = OsVersion.where(
+        major: os_version_params[:major][key],
+        minor: os_version_params[:minor][key],
+        patch: os_version_params[:patch][key]
+      ).first_or_initialize
+
+
+      @body_color.save && @memory.save && @os_version.save
+    end
+
+    # Create phone
+    def create_phone
+      @phone = Phone.where(
+        user_id: current_user.id,
+        body_color_id: @body_color.id,
+        memory_id: @memory.id,
+        os_version_id: @os_version.id,
+        model_id: @model.id
+      ).first_or_initialize
+
+      @phone.save
+    end
+
+    # Create inventory depends on
+    def create_inventory(key)
+      @inventory = Inventory.where(
+        phone_id: @phone.id,
+        price: inventory_params[:price][key]
+      ).first_or_initialize
+
+      if Inventory.exists?(id: @inventory.id)
+        @inventory.update(quantity: @inventory.quantity + inventory_params[:quantity][key].to_i)
+      else
+        @inventory.quantity = inventory_params[:quantity][key]
+        @inventory.save
+      end
     end
 end
