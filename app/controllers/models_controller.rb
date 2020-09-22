@@ -1,6 +1,6 @@
 class ModelsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_model, only: [:show, :edit, :update, :destroy]
+  before_action :set_model, only: [:show, :edit, :update, :destroy, :restore]
   before_action :get_necessary_data, only: [:new, :edit]
 
   # GET /models
@@ -57,9 +57,19 @@ class ModelsController < ApplicationController
   # DELETE /models/1
   # DELETE /models/1.json
   def destroy
-    @model.destroy
+    @model.discard
     respond_to do |format|
-      format.html { redirect_to models_url, notice: 'Model was successfully destroyed.' }
+      format.html { redirect_to models_url, notice: 'Model was successfully deactive.' }
+      format.json { head :no_content }
+    end
+  end
+
+  # PATCH/PUT /models/1/restore
+  # PATCH/PUT /models/1/restore
+  def restore
+    @model.undiscard
+    respond_to do |format|
+      format.html { redirect_to models_url, notice: 'Model was successfully active.' }
       format.json { head :no_content }
     end
   end

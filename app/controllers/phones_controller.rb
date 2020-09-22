@@ -6,28 +6,37 @@ class PhonesController < ApplicationController
   # GET /phones
   # GET /phones.json
   def index
-    @warehouse = []
-    models = Phone.select(:model_id).group(:model_id)
-    models.each do |model|
-      item = {}
-      item[:model_id] = model.model_id
-      item[:model_name] = Model.find(model.model_id).name
-      minimum_memory = Memory.where(amount: Phone.joins(:memory).where(model_id: model.model_id).minimum(:amount)).pick(:display_name)
-      maximum_memory = Memory.where(amount: Phone.joins(:memory).where(model_id: model.model_id).maximum(:amount)).pick(:display_name)
-      minimum_price = Inventory.joins(:phone).where(phone: Phone.where(model_id: model.model_id)).minimum(:price)
-      maximum_price = Inventory.joins(:phone).where(phone: Phone.where(model_id: model.model_id)).maximum(:price)
-      item[:total_quantity] = Inventory.joins(:phone).where(phone: Phone.where(model_id: model.model_id)).sum(:quantity)
-      if minimum_memory == maximum_memory
-        item[:memory_range] = maximum_memory
+    @warehouse = {}
+
+    inventories = Inventory.kept
+    inventories.each do |inventory|
+      if @warehouse.key?(inventory.phone.model.id)
+        item = @warehouse[inventory.phone.model.id]
+        item[:quantity] += inventory.quantity
+
+        unless (item[:price_min] == inventory.price && item[:price_max] == inventory.price)
+          item[:price_min] = [item[:price_min], inventory.price].min
+          item[:price_max] = [item[:price_max], inventory.price].max
+          item[:price] = "#{item[:price_min]}$ - #{item[:price_max]}$"
+        end
+
+        unless (item[:memory_min] == inventory.phone.memory.amount && item[:memory_max] == inventory.phone.memory.amount)
+          item[:memory_min] = [item[:memory_min], inventory.phone.memory.amount].min
+          item[:memory_max] = [item[:memory_max], inventory.phone.memory.amount].max
+          item[:memory] = Memory.where(amount: item[:memory_min]).pick(:display_name) + " - " + Memory.where(amount: item[:memory_max]).pick(:display_name)
+        end
       else
-        item[:memory_range] = minimum_memory + " - " + maximum_memory
+        item = {}
+        item[:model_name] = inventory.phone.model.name
+        item[:quantity] = inventory.quantity
+        item[:price_min] = inventory.price
+        item[:price_max] = inventory.price
+        item[:price] = inventory.price
+        item[:memory_min] = inventory.phone.memory.amount
+        item[:memory_max] = inventory.phone.memory.amount
+        item[:memory] = inventory.phone.memory.display_name
       end
-      if minimum_price == maximum_price
-        item[:price_range] = "#{maximum_price}$"
-      else
-        item[:price_range] = "#{minimum_price}$ - #{maximum_price}$"
-      end
-      @warehouse << item
+      @warehouse[inventory.phone.model.id] = item
     end
   end
 
@@ -76,14 +85,13 @@ class PhonesController < ApplicationController
           price: inventory_params[:price][key]
         ).first_or_initialize
 
-        # @phone = phone
         unless phone.save
           success = false
         else
           if Inventory.exists?(id: inventory.id)
             inventory.update(quantity: inventory.quantity + inventory_params[:quantity][key].to_i)
           else
-            inventory.update(quantity: inventory_params[:quantity][key])
+            inventory.quantity = inventory_params[:quantity][key]
             inventory.save
           end
         end

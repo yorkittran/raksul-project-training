@@ -22,7 +22,7 @@ document.getElementById("add-button").addEventListener("click", function() {
       +'</div>'
       +'<div class="w-1-of-4">'
         +'<label class="text-gray-700 font-bold" for="memory_amount_'+ index +'">Memory (Amount by GB)</label>'
-        +'<div class="autocomplete w-full mt-1"><input type="text" name="memory[amount]['+ index +']" id="memory_amount_'+ index +'" class="form-input w-full" autocomplete="off"></div>'
+        +'<div class="autocomplete w-full mt-1"><input type="number" name="memory[amount]['+ index +']" id="memory_amount_'+ index +'" class="form-input w-full" autocomplete="off"></div>'
       +'</div>'
     +'</div>'
     +'<div class="flex gap-4">'

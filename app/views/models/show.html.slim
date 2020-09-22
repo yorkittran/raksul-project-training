@@ -41,6 +41,7 @@
                 td
                   = inventory.price
       .my-4
+        = link_to 'Back', phones_path, class: 'hover_bg-gray-200 focus_shadow-outline focus_outline-none text-gray-800 font-bold py-4 px-8 rounded mr-4'
         = link_to 'Import', new_phone_path, class: 'shadow bg-blue-500 hover_bg-blue-600 focus_shadow-outline focus_outline-none text-white font-bold py-4 px-8 rounded'
 
 = javascript_include_tag 'datatable/jquery-3.4.1.min.js'

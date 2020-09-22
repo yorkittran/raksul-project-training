@@ -6,5 +6,10 @@ class Phone < ApplicationRecord
   belongs_to :user
   has_many :inventories
 
-  delegate :quantity, to: :inventory, prefix: true
+  include Discard::Model
+  scope :kept, -> { undiscarded.joins(:model).merge(Model.kept) }
+
+  def kept?
+    undiscarded? && model.kept?
+  end
 end
