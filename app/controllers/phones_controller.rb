@@ -64,16 +64,6 @@ class PhonesController < ApplicationController
     end
   end
 
-  # DELETE /phones/1
-  # DELETE /phones/1.json
-  def destroy
-    @phone.destroy
-    respond_to do |format|
-      format.html { redirect_to phones_url, notice: 'Phone was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
-
   private
 
   # Use callbacks to share common setup or constraints between actions.

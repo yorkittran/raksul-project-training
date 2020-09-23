@@ -50,16 +50,6 @@ class OsNamesController < ApplicationController
     end
   end
 
-  # DELETE /os_names/1
-  # DELETE /os_names/1.json
-  def destroy
-    @os_name.destroy
-    respond_to do |format|
-      format.html { redirect_to os_names_url, notice: 'Os name was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
-
   private
 
   # Use callbacks to share common setup or constraints between actions.
