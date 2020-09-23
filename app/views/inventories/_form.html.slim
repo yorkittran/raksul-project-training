@@ -1,9 +1,9 @@
-= form_for @phone do |f|
-  - if @phone.errors.any?
+= form_for @inventory do |f|
+  - if @inventory.errors.any?
     #error_explanation
-      h2 = "#{pluralize(@phone.errors.count, "error")} prohibited this phone from being saved:"
+      h2 = "#{pluralize(@inventory.errors.count, "error")} prohibited this inventory from being saved:"
       ul
-        - @phone.errors.full_messages.each do |message|
+        - @inventory.errors.full_messages.each do |message|
           li = message
 
   .md_flex.md_items-center.mb-6
@@ -12,7 +12,7 @@
     button#add-button.shadow.bg-blue-500.hover_bg-blue-600.focus_shadow-outline.focus_outline-none.text-white.font-bold.py-2.px-4.mx-4.rounded.opacity-50.cursor-not-allowed type="button" Add
 
   #button-section.md_flex.md_items-center.my-10.gap-4
-    = link_to 'Back', phones_path, class: 'hover_bg-gray-200 focus_shadow-outline focus_outline-none text-gray-800 font-bold py-2 px-4 rounded'
+    = link_to 'Back', inventories_path, class: 'hover_bg-gray-200 focus_shadow-outline focus_outline-none text-gray-800 font-bold py-2 px-4 rounded'
     = f.submit 'Import', id: 'create-button', class: 'shadow bg-blue-500 hover_bg-blue-600 focus_shadow-outline focus_outline-none text-white font-bold py-4 px-8 rounded hidden'
 
 javascript:
