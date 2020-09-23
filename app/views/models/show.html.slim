@@ -29,7 +29,8 @@
             th data-priority="2" Memory
             th data-priority="3" OS Version
             th data-priority="4" Quantity
-            th data-priority="4" Price
+            th data-priority="5" Price
+            th Active
         tbody
           - @phones.each do |phone|
             - phone.inventories.each do |inventory|
@@ -44,14 +45,28 @@
                   = inventory.quantity
                 td
                   = inventory.price
+                td
+                  label.flex.justify-center.cursor-pointer for="#{inventory.id}"
+                    .relative
+                      - if inventory.discarded?
+                        input.hidden.toggle id="#{inventory.id}" type="checkbox" /
+                      - else
+                        input.hidden.toggle id="#{inventory.id}" type="checkbox" checked="true" /
+                      .toggle__line.w-10.h-4.bg-gray-200.rounded-full.shadow-inner
+                      .toggle__dot.absolute.w-6.h-6.bg-white.rounded-full.shadow
       .my-4
         = link_to 'Back', phones_path, class: 'hover_bg-gray-200 focus_shadow-outline focus_outline-none text-gray-800 font-bold py-4 px-8 rounded mr-4'
         = link_to 'Import', new_phone_path, class: 'shadow bg-blue-500 hover_bg-blue-600 focus_shadow-outline focus_outline-none text-white font-bold py-4 px-8 rounded'
+
+javascript:
+  var resource = "/inventories/"
+  var modelId = #{@model.id}
 
 = javascript_include_tag 'datatable/jquery-3.4.1.min.js'
 = javascript_include_tag 'datatable/jquery.dataTables.js'
 = javascript_include_tag 'datatable/dataTables.responsive.js'
 = javascript_include_tag 'datatable'
+= javascript_pack_tag 'discard'
 
 - content_for :stylesheet_page do
   = stylesheet_link_tag 'datatable/jquery.dataTables'

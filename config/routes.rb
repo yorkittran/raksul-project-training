@@ -6,6 +6,11 @@ Rails.application.routes.draw do
       put 'restore'
     end
   end
+  resources :inventories do
+    member do
+      put 'restore'
+    end
+  end
   resources :phones
   resources :manufacturers
   resources :os_names
