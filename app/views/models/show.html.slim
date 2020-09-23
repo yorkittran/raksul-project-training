@@ -2,6 +2,10 @@
   .min-w-1-of-2.max-w-sm.p-10.rounded.shadow-xl.text-center
     h2.text-4xl.font-black
       = @model.name
+    - if @model.discarded?
+      h2.text-xl.text-red-500 Deactive
+    - else
+      h2.text-xl.text-green-500 Active
     h2.text-xl
       = @model.year_of_manufacture
     h2.text-xl.mb-8
