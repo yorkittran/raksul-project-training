@@ -10,8 +10,7 @@ class InventoriesController < ApplicationController
 
   # GET /models/1
   # GET /models/1.json
-  def show
-  end
+  def show; end
 
   # GET /phones/new
   def new
@@ -68,9 +67,9 @@ class InventoriesController < ApplicationController
       item = {}
       item[:model] = Model.where(name: value).first
       item[:body_color] = BodyColor.where(name: params[:body_color][:name][key]).first_or_initialize
-      item[:memory] = Memory.where(amount: params[:memory][:amount][key], display_name: params[:memory][:display_name][key]).first_or_initialize
-      item[:os_version] = OsVersion.where(major: params[:os_version][:major][key], minor: params[:os_version][:minor][key], patch: params[:os_version][:patch][key]).first_or_initialize
-      item[:inventory] = Inventory.new(quantity: params[:inventory][:quantity][key], price: params[:inventory][:price][key])
+      item[:memory] = Memory.where(amount: params[:memory][:amount][key], display_name: params[:memory][:display_name][key]).first_or_initialize # rubocop:disable Layout/LineLength
+      item[:os_version] = OsVersion.where(major: params[:os_version][:major][key], minor: params[:os_version][:minor][key], patch: params[:os_version][:patch][key]).first_or_initialize # rubocop:disable Layout/LineLength
+      item[:inventory] = Inventory.new(quantity: params[:inventory][:quantity][key], price: params[:inventory][:price][key]) # rubocop:disable Layout/LineLength
       arr << item
     end
     arr
@@ -79,19 +78,17 @@ class InventoriesController < ApplicationController
   def create_bulk
     convert_params.each do |item|
       ActiveRecord::Base.transaction do
-        if item[:body_color].save && item[:memory].save && item[:os_version]
+        if item[:body_color].save && item[:memory].save && item[:os_version].save
           phone = Phone.create(
             user_id: current_user.id,
             body_color_id: item[:body_color].id,
             memory_id: item[:memory].id,
             os_version_id: item[:os_version].id,
-            model_id: item[:model].id
+            model_id: item[:model].id,
           )
           item[:inventory].phone_id = phone.id
           @inventory = item[:inventory]
-          unless @inventory.save
-            return false
-          end
+          return false unless @inventory.save
         end
       end
     end

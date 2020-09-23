@@ -23,6 +23,9 @@ Rails.application.routes.draw do
     }
     root 'home#index'
   end
-  get '*path', to: 'error#catch_routing_error'
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+
+  # exclude active_storage route from routing error
+  get '*path', to: 'error#catch_routing_error', constraints: lambda { |req|
+    req.path.exclude? 'rails/active_storage'
+  }
 end
