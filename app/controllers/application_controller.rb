@@ -17,6 +17,6 @@ class ApplicationController < ActionController::Base
     {locale: I18n.locale}
   end
 
-  # rescue_from ActionController::RoutingError, with: :render_404
+  rescue_from ActionController::RoutingError, with: :render_404
   rescue_from ActiveRecord::RecordNotFound, with: :render_404
 end
