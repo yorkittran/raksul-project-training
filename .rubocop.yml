@@ -88,3 +88,6 @@ RSpec/NestedGroups:
 
 RSpec/EmptyExampleGroup:
   Enabled: false
+
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
