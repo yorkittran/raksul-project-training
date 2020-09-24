@@ -42,7 +42,8 @@ RSpec.describe "/body_colors", type: :request do
   describe "GET /new" do
     it "renders a successful response" do
       get new_body_color_url
-      expect(response).to be_successful
+      byebug
+      expect(response).to have_http_status(200)
     end
   end
 
