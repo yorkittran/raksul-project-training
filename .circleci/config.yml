@@ -2,7 +2,7 @@ version: 2.0
 defaults: &defaults
   working_directory: ~/app
   docker:
-    - image: circleci/ruby:2.6.3-node-browser
+    - image: circleci/ruby:2.7.1-node-browsers
       environment:
         RAILS_ENV: test
         DB_HOST: 127.0.0.1
