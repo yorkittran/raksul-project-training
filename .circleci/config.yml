@@ -3,11 +3,13 @@ defaults: &defaults
   working_directory: ~/app
   docker:
     - image: circleci/ruby:2.6.3-node-browsers
-    - image: circleci/mysql:8.0.21
-      command: [--default-authentication-plugin=mysql_native_password]
       environment:
         RAILS_ENV: test
         DB_HOST: 127.0.0.1
+        DB_USERNAME: 'root'
+    - image: circleci/mysql:8.0.21
+      command: [--default-authentication-plugin=mysql_native_password]
+      environment:
         DB_USERNAME: root
         MYSQL_ROOT_HOST: '%'
         MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
