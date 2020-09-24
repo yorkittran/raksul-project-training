@@ -31,25 +31,10 @@ RSpec.describe "/inventories", type: :request do
     end
   end
 
-  describe "GET /show" do
-    it "renders a successful response" do
-      inventory = Inventory.create! valid_attributes
-      get inventory_url(inventory)
-      expect(response).to be_successful
-    end
-  end
-
   describe "GET /new" do
     it "renders a successful response" do
       get new_inventory_url
-      expect(response).to be_successful
-    end
-  end
-
-  describe "GET /edit" do
-    it "render a successful response" do
-      inventory = Inventory.create! valid_attributes
-      get edit_inventory_url(inventory)
+      byebug
       expect(response).to be_successful
     end
   end
@@ -79,51 +64,6 @@ RSpec.describe "/inventories", type: :request do
         post inventories_url, params: { inventory: invalid_attributes }
         expect(response).to be_successful
       end
-    end
-  end
-
-  describe "PATCH /update" do
-    context "with valid parameters" do
-      let(:new_attributes) do
-        skip("Add a hash of attributes valid for your model")
-      end
-
-      it "updates the requested inventory" do
-        inventory = Inventory.create! valid_attributes
-        patch inventory_url(inventory), params: { inventory: new_attributes }
-        inventory.reload
-        skip("Add assertions for updated state")
-      end
-
-      it "redirects to the inventory" do
-        inventory = Inventory.create! valid_attributes
-        patch inventory_url(inventory), params: { inventory: new_attributes }
-        inventory.reload
-        expect(response).to redirect_to(inventory_url(inventory))
-      end
-    end
-
-    context "with invalid parameters" do
-      it "renders a successful response (i.e. to display the 'edit' template)" do
-        inventory = Inventory.create! valid_attributes
-        patch inventory_url(inventory), params: { inventory: invalid_attributes }
-        expect(response).to be_successful
-      end
-    end
-  end
-
-  describe "DELETE /destroy" do
-    it "destroys the requested inventory" do
-      inventory = Inventory.create! valid_attributes
-      expect do
-        delete inventory_url(inventory)
-      end.to change(Inventory, :count).by(-1)
-    end
-
-    it "redirects to the inventories list" do
-      inventory = Inventory.create! valid_attributes
-      delete inventory_url(inventory)
-      expect(response).to redirect_to(inventories_url)
     end
   end
 end
