@@ -3,65 +3,65 @@ defaults: &defaults
   working_directory: ~/app
   docker:
     - image: circleci/ruby:2.6.3
-      environment:
-        RAILS_ENV: test
-        DB_HOST: 127.0.0.1
-        DB_USERNAME: 'root'
+        environment:
+          RAILS_ENV: test
+          DB_HOST: 127.0.0.1
+          DB_USERNAME: 'root'
     - image: circleci/mysql:8.0.21
-      command: [--default-authentication-plugin=mysql_native_password]
-      environment:
-        DB_USERNAME: root
-        MYSQL_ROOT_HOST: '%'
-        MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
-        MYSQL_DATABASE: raksul_project_training_test
+        command: [--default-authentication-plugin=mysql_native_password]
+        environment:
+          DB_USERNAME: root
+          MYSQL_ROOT_HOST: '%'
+          MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
+          MYSQL_DATABASE: raksul_project_training_test
 jobs:
   build:
     <<: *defaults
     steps:
-      - checkout
+        - checkout
 
-      # Restore bundle cache
-      - restore_cache:
-        name: Restore bundle cache
-        key: vendor-bundle-{{ checksum "Gemfile.lock" }}
+        # Restore bundle cache
+        - restore_cache:
+            name: Restore bundle cache
+            key: vendor-bundle-{{ checksum "Gemfile.lock" }}
 
-      # Bundle install
-      - run: bundle check --path=vendor/bundle || bundle install --path=vendor/bundle
+        # Bundle install
+        - run: bundle check --path=vendor/bundle || bundle install --path=vendor/bundle
 
-      # Store bundle cache
-      - save_cache:
-        name: Store bundle cache
-        key: vendor-bundle-{{ checksum "Gemfile.lock" }}
-        path: vendor/bundle
+        # Store bundle cache
+        - save_cache:
+            name: Store bundle cache
+            key: vendor-bundle-{{ checksum "Gemfile.lock" }}
+            path: vendor/bundle
 
-      # Restore yarn cache
-      - restore_cache:
-        name: Restore yarn cache
-        key: yarn-cache-{{ checksum "yarn.lock" }}
+        # Restore yarn cache
+        - restore_cache:
+            name: Restore yarn cache
+            key: yarn-cache-{{ checksum "yarn.lock" }}
 
-      # Yarn install
-      - run: yarn install
+        # Yarn install
+        - run: yarn install
 
-      # Store yarn cache
-      - save_cache:
-        name: Store yarn cache
-        key: yarn-cache-{{ checksum "yarn.lock" }}
-        path: ~/.cache/yarn
+        # Store yarn cache
+        - save_cache:
+            name: Store yarn cache
+            key: yarn-cache-{{ checksum "yarn.lock" }}
+            path: ~/.cache/yarn
 
-      # Wait for DB
-      - run:
-        name: Wait for DB
-        command: dockerize -wait tcp://localhost:3306 -timeout 1m
+        # Wait for DB
+        - run:
+            name: Wait for DB
+            command: dockerize -wait tcp://localhost:3306 -timeout 1m
 
-      # Setup DB
-      - run:
-        name: Setup DB
-        command: bundle exec rake db:setup --trace
+        # Setup DB
+        - run:
+            name: Setup DB
+            command: bundle exec rake db:setup --trace
 
-      # Run tests
-      - run:
-          name: rubocop
-          command: bundle exec rubocop
-      - run:
-          name: rspec
-          command: bundle exec rspec
+        # Run tests
+        - run:
+            name: rubocop
+            command: bundle exec rubocop
+        - run:
+            name: rspec
+            command: bundle exec rspec
