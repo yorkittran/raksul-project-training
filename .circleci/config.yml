@@ -32,7 +32,7 @@ jobs:
         - save_cache:
             name: Store bundle cache
             key: vendor-bundle-{{ checksum "Gemfile.lock" }}
-            path: vendor/bundle
+            paths: vendor/bundle
 
         # Restore yarn cache
         - restore_cache:
@@ -46,7 +46,7 @@ jobs:
         - save_cache:
             name: Store yarn cache
             key: yarn-cache-{{ checksum "yarn.lock" }}
-            path: ~/.cache/yarn
+            paths: ~/.cache/yarn
 
         # Wait for DB
         - run:
