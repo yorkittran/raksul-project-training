@@ -48,6 +48,7 @@ group :development, :test do
 
   # More gems
   gem 'better_errors', '~> 2.7', '>= 2.7.1'
+  gem 'dotenv-rails'
   gem 'factory_bot_rails', '~> 6.1'
   gem 'faker', '~> 2.13'
   gem 'rspec-rails', '~> 4.0', '>= 4.0.1'
