@@ -12,8 +12,8 @@ require 'rails_helper'
 # of tools you can use to make these specs even more expressive, but we're
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
-RSpec.describe "/body_colors", type: :request do
-  # BodyColor. As you add validations to BodyColor, be sure to
+RSpec.describe "/inventories", type: :request do
+  # Inventory. As you add validations to Inventory, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) do
     skip("Add a hash of attributes valid for your model")
@@ -25,59 +25,58 @@ RSpec.describe "/body_colors", type: :request do
 
   describe "GET /index" do
     it "renders a successful response" do
-      BodyColor.create! valid_attributes
-      get body_colors_url
+      Inventory.create! valid_attributes
+      get inventories_url
       expect(response).to be_successful
     end
   end
 
   describe "GET /show" do
     it "renders a successful response" do
-      body_color = BodyColor.create! valid_attributes
-      get body_color_url(body_color)
+      inventory = Inventory.create! valid_attributes
+      get inventory_url(inventory)
       expect(response).to be_successful
     end
   end
 
   describe "GET /new" do
     it "renders a successful response" do
-      get new_body_color_url
-      byebug
-      expect(response).to have_http_status(200)
+      get new_inventory_url
+      expect(response).to be_successful
     end
   end
 
   describe "GET /edit" do
     it "render a successful response" do
-      body_color = BodyColor.create! valid_attributes
-      get edit_body_color_url(body_color)
+      inventory = Inventory.create! valid_attributes
+      get edit_inventory_url(inventory)
       expect(response).to be_successful
     end
   end
 
   describe "POST /create" do
     context "with valid parameters" do
-      it "creates a new BodyColor" do
+      it "creates a new Inventory" do
         expect do
-          post body_colors_url, params: { body_color: valid_attributes }
-        end.to change(BodyColor, :count).by(1)
+          post inventories_url, params: { inventory: valid_attributes }
+        end.to change(Inventory, :count).by(1)
       end
 
-      it "redirects to the created body_color" do
-        post body_colors_url, params: { body_color: valid_attributes }
-        expect(response).to redirect_to(body_color_url(BodyColor.last))
+      it "redirects to the created inventory" do
+        post inventories_url, params: { inventory: valid_attributes }
+        expect(response).to redirect_to(inventory_url(Inventory.last))
       end
     end
 
     context "with invalid parameters" do
-      it "does not create a new BodyColor" do
+      it "does not create a new Inventory" do
         expect do
-          post body_colors_url, params: { body_color: invalid_attributes }
-        end.to change(BodyColor, :count).by(0)
+          post inventories_url, params: { inventory: invalid_attributes }
+        end.to change(Inventory, :count).by(0)
       end
 
       it "renders a successful response (i.e. to display the 'new' template)" do
-        post body_colors_url, params: { body_color: invalid_attributes }
+        post inventories_url, params: { inventory: invalid_attributes }
         expect(response).to be_successful
       end
     end
@@ -89,42 +88,42 @@ RSpec.describe "/body_colors", type: :request do
         skip("Add a hash of attributes valid for your model")
       end
 
-      it "updates the requested body_color" do
-        body_color = BodyColor.create! valid_attributes
-        patch body_color_url(body_color), params: { body_color: new_attributes }
-        body_color.reload
+      it "updates the requested inventory" do
+        inventory = Inventory.create! valid_attributes
+        patch inventory_url(inventory), params: { inventory: new_attributes }
+        inventory.reload
         skip("Add assertions for updated state")
       end
 
-      it "redirects to the body_color" do
-        body_color = BodyColor.create! valid_attributes
-        patch body_color_url(body_color), params: { body_color: new_attributes }
-        body_color.reload
-        expect(response).to redirect_to(body_color_url(body_color))
+      it "redirects to the inventory" do
+        inventory = Inventory.create! valid_attributes
+        patch inventory_url(inventory), params: { inventory: new_attributes }
+        inventory.reload
+        expect(response).to redirect_to(inventory_url(inventory))
       end
     end
 
     context "with invalid parameters" do
       it "renders a successful response (i.e. to display the 'edit' template)" do
-        body_color = BodyColor.create! valid_attributes
-        patch body_color_url(body_color), params: { body_color: invalid_attributes }
+        inventory = Inventory.create! valid_attributes
+        patch inventory_url(inventory), params: { inventory: invalid_attributes }
         expect(response).to be_successful
       end
     end
   end
 
   describe "DELETE /destroy" do
-    it "destroys the requested body_color" do
-      body_color = BodyColor.create! valid_attributes
+    it "destroys the requested inventory" do
+      inventory = Inventory.create! valid_attributes
       expect do
-        delete body_color_url(body_color)
-      end.to change(BodyColor, :count).by(-1)
+        delete inventory_url(inventory)
+      end.to change(Inventory, :count).by(-1)
     end
 
-    it "redirects to the body_colors list" do
-      body_color = BodyColor.create! valid_attributes
-      delete body_color_url(body_color)
-      expect(response).to redirect_to(body_colors_url)
+    it "redirects to the inventories list" do
+      inventory = Inventory.create! valid_attributes
+      delete inventory_url(inventory)
+      expect(response).to redirect_to(inventories_url)
     end
   end
 end

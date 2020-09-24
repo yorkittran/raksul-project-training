@@ -50,16 +50,6 @@ class ManufacturersController < ApplicationController
     end
   end
 
-  # DELETE /manufacturers/1
-  # DELETE /manufacturers/1.json
-  def destroy
-    @manufacturer.destroy
-    respond_to do |format|
-      format.html { redirect_to manufacturers_url, notice: 'Manufacturer was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
-
   private
 
   # Use callbacks to share common setup or constraints between actions.

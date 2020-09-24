@@ -58,7 +58,7 @@ class ModelsController < ApplicationController
   def destroy
     @model.discard
     respond_to do |format|
-      format.html { redirect_to models_url, notice: 'Model was successfully deactive.' }
+      format.html { redirect_to models_url, notice: I18n.t('flashes.success.model.deactive') }
       format.json { head :no_content }
     end
   end
@@ -68,7 +68,7 @@ class ModelsController < ApplicationController
   def restore
     @model.undiscard
     respond_to do |format|
-      format.html { redirect_to models_url, notice: 'Model was successfully active.' }
+      format.html { redirect_to models_url, notice: I18n.t('flashes.success.model.active') }
       format.json { head :no_content }
     end
   end

@@ -50,16 +50,6 @@ class MemoriesController < ApplicationController
     end
   end
 
-  # DELETE /memories/1
-  # DELETE /memories/1.json
-  def destroy
-    @memory.destroy
-    respond_to do |format|
-      format.html { redirect_to memories_url, notice: 'Memory was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
-
   private
 
   # Use callbacks to share common setup or constraints between actions.

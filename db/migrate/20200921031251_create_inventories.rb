@@ -7,7 +7,6 @@ class CreateInventories < ActiveRecord::Migration[6.0]
       t.datetime :discarded_at
 
       t.timestamps
-      t.index [:phone_id, :price], unique: true
       t.index :discarded_at
     end
   end

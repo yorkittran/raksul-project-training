@@ -50,16 +50,6 @@ class BodyColorsController < ApplicationController
     end
   end
 
-  # DELETE /body_colors/1
-  # DELETE /body_colors/1.json
-  def destroy
-    @body_color.destroy
-    respond_to do |format|
-      format.html { redirect_to body_colors_url, notice: 'Body color was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
-
   private
 
   # Use callbacks to share common setup or constraints between actions.
