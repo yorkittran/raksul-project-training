@@ -24,7 +24,7 @@ class InventoriesController < ApplicationController
   # POST /inventories.json
   def create
     respond_to do |format|
-      if create_bulk
+      if CreateBulkService.call(convert_params, current_user)
         format.html { redirect_to inventories_path, notice: 'Inventory was successfully imported.' }
         format.json { render :index, status: :created, location: inventories_path }
       else
@@ -73,25 +73,5 @@ class InventoriesController < ApplicationController
       arr << item
     end
     arr
-  end
-
-  def create_bulk
-    convert_params.each do |item|
-      ActiveRecord::Base.transaction do
-        if item[:body_color].save && item[:memory].save && item[:os_version].save
-          phone = Phone.create(
-            user_id: current_user.id,
-            body_color_id: item[:body_color].id,
-            memory_id: item[:memory].id,
-            os_version_id: item[:os_version].id,
-            model_id: item[:model].id,
-          )
-          item[:inventory].phone_id = phone.id
-          @inventory = item[:inventory]
-          return false unless @inventory.save
-        end
-      end
-    end
-    true
   end
 end
