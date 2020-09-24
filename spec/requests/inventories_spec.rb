@@ -34,7 +34,6 @@ RSpec.describe "/inventories", type: :request do
   describe "GET /new" do
     it "renders a successful response" do
       get new_inventory_url
-      byebug
       expect(response).to be_successful
     end
   end
