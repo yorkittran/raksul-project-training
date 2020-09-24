@@ -12,16 +12,26 @@ Rails.application.routes.draw do
         put 'restore'
       end
     end
-    resources :phones
     resources :manufacturers
     resources :os_names
     resources :body_colors
     resources :memories
+
     devise_for :users, controllers: {
       sessions: 'users/sessions',
       registrations: 'users/registrations',
     }
-    root 'home#index'
+    devise_scope :users do
+      authenticated :user do
+        root 'inventories#index', as: :authenticated_root
+      end
+
+      unauthenticated do
+        as :user do
+          root 'users/sessions#new', as: :unauthenticated_root
+        end
+      end
+    end
   end
 
   # exclude active_storage route from routing error
