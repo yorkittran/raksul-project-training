@@ -1,0 +1,73 @@
+.flex.content-center.justify-center
+  .min-w-1-of-2.max-w-sm.p-10.rounded.shadow-xl.text-center
+    h2.text-4xl.font-black
+      = @model.name
+    - if @model.discarded?
+      h2.text-xl.text-red-500 Deactive
+    - else
+      h2.text-xl.text-green-500 Active
+    h2.text-xl
+      = @model.year_of_manufacture
+    h2.text-xl.mb-8
+      | Running on&nbsp;
+      = @model.os_name.name
+    = image_tag @model.manufacturer.logo.variant(resize_to_limit: [500, nil]), class: 'rounded md_flex md_items-center mx-auto my-10'
+    h2.text-xl.mb-8
+      | Manufactured by&nbsp;
+      = @model.manufacturer.name
+    = link_to 'Back', models_path, class: 'hover_bg-gray-200 focus_shadow-outline focus_outline-none text-gray-800 font-bold py-2 px-4 mx-2 rounded'
+    = link_to 'Edit', edit_model_path(@model), class: 'shadow bg-orange-500 hover_bg-orange-600 focus_shadow-outline focus_outline-none text-white font-bold py-2 px-4 mx-2 rounded'
+
+.flex.content-center.justify-center
+  .container.px-20.py-10
+    h1.text-4xl.font-black.antialiased.mb-4 In Warehouse
+    #recipients.p-8.mt-6.lg_mt-0.rounded.shadow-xl.bg-white.text-left
+      table#example.stripe.hover style=("width:100%; padding-top: 1em;  padding-bottom: 1em;")
+        thead
+          tr.text-left
+            th data-priority="1" Body Color
+            th data-priority="2" Memory
+            th data-priority="3" OS Version
+            th data-priority="4" Quantity
+            th data-priority="5" Price
+            th Active
+        tbody
+          - @phones.each do |phone|
+            - phone.inventories.each do |inventory|
+              tr
+                td
+                  = phone.body_color.name
+                td
+                  = phone.memory.display_name
+                td
+                  = "#{phone.model.os_name.name} #{phone.os_version.major}.#{phone.os_version.minor}.#{phone.os_version.patch}"
+                td
+                  = inventory.quantity
+                td
+                  = inventory.price
+                td
+                  label.flex.justify-center.cursor-pointer for="#{inventory.id}"
+                    .relative
+                      - if inventory.discarded?
+                        input.hidden.toggle id="#{inventory.id}" type="checkbox" /
+                      - else
+                        input.hidden.toggle id="#{inventory.id}" type="checkbox" checked="true" /
+                      .toggle__line.w-10.h-4.bg-gray-200.rounded-full.shadow-inner
+                      .toggle__dot.absolute.w-6.h-6.bg-white.rounded-full.shadow
+      .my-4
+        = link_to 'Back', inventories_path, class: 'hover_bg-gray-200 focus_shadow-outline focus_outline-none text-gray-800 font-bold py-4 px-8 rounded mr-4'
+        = link_to 'Import', new_inventory_path, class: 'shadow bg-blue-500 hover_bg-blue-600 focus_shadow-outline focus_outline-none text-white font-bold py-4 px-8 rounded'
+
+javascript:
+  var resource = "/inventories/"
+  var modelId = #{@model.id}
+
+= javascript_include_tag 'datatable/jquery-3.4.1.min.js'
+= javascript_include_tag 'datatable/jquery.dataTables.js'
+= javascript_include_tag 'datatable/dataTables.responsive.js'
+= javascript_include_tag 'datatable'
+= javascript_pack_tag 'discard'
+
+- content_for :stylesheet_page do
+  = stylesheet_link_tag 'datatable/jquery.dataTables'
+  = stylesheet_link_tag 'datatable/responsive.dataTables'

@@ -13,3 +13,95 @@
  *= require_tree .
  *= require_self
  */
+
+ /* Dropdown */
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+/* Upload multiple file */
+.hasImage:hover section {
+    background-color: rgba(5, 5, 5, 0.4);
+}
+.hasImage:hover button:hover {
+    background: rgba(5, 5, 5, 0.45);
+}
+
+#overlay p,
+i {
+    opacity: 0;
+}
+
+#overlay.draggedover {
+    background-color: rgba(255, 255, 255, 0.7);
+}
+#overlay.draggedover p,
+#overlay.draggedover i {
+    opacity: 1;
+}
+
+.group:hover .group-hover\:text-blue-800 {
+    color: #2b6cb0;
+}
+
+/* Trigger border */
+.border-custom {
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
+    border-color: #e2e8f0;
+    border-width: 1px;
+    border-radius: 0.25rem;
+}
+
+.border-custom-triggered {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
+    border-color: #63b3ed;
+}
+
+/* Toggle button */
+.toggle__dot {
+    top: -.25rem;
+    left: -.25rem;
+    transition: all 0.3s ease-in-out;
+}
+
+input:checked ~ .toggle__dot {
+    transform: translateX(100%);
+    background-color: #4299e1;
+}
+
+/* Autocomplete */
+.autocomplete {
+    position: relative;
+    display: inline-block;
+}
+
+.autocomplete-items {
+    position: absolute;
+    border: 1px solid #e2e8f0;
+    border-bottom: none;
+    border-top: none;
+    z-index: 99;
+    top: 100%;
+    left: 0;
+    right: 0;
+}
+
+.autocomplete-items div {
+    padding: 0.5rem;
+    cursor: pointer;
+    background-color: #fff;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.autocomplete-items div:hover {
+    background-color: #edf2f7;
+}
+
+.autocomplete-active {
+    /*when navigating through the items using the arrow keys:*/
+    background-color: #63b3ed !important;
+    color: #ffffff;
+  }

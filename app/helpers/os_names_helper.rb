@@ -1,0 +1,2 @@
+module OsNamesHelper
+end

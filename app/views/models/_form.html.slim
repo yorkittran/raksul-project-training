@@ -1,0 +1,37 @@
+= form_for @model do |f|
+  - if @model.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@model.errors.count, "error")} prohibited this model from being saved:"
+      ul
+        - @model.errors.full_messages.each do |message|
+          li = message
+
+  h1.text-3xl.mb-6.font-light Step 1 - Model and Color
+  .md_flex.md_items-center.mb-6
+    = f.label :name, class: 'block text-base font-bold md_text-right mb-1 md_mb-0 pr-4 w-1-of-3', for: 'name'
+    = f.text_field :name, autofocus: true, class: 'form-input w-full'
+  .md_flex.md_items-center.mb-6
+    = f.label :year_of_manufacture, class: 'block text-base font-bold md_text-right mb-1 md_mb-0 pr-4  w-1-of-3', for: 'year_of_manufacture'
+    = f.select :year_of_manufacture, @years, {} , { class: 'form-select w-full' }
+
+  h1.text-3xl.mb-6.my-10.font-light Step 2 - Manufacturer
+  = f.hidden_field :manufacturer_id
+  .grid.grid-cols-3.gap-4
+    - @manufacturers.each do |manufacturer|
+        div
+          = image_tag manufacturer.logo, size: "200x200", class: "manufacturer rounded-md align-middle border-custom mx-auto", alt: manufacturer.id
+          p.text-xl.text-center.pt-4
+            = manufacturer.name
+
+  h1.text-3xl.mb-6.my-10.font-light Step 3 - OS
+  = f.hidden_field :os_name_id
+  .grid.grid-cols-2.gap-4
+    - @os_names.each do |os_name|
+        div
+          = image_tag os_name.logo, size: "200x200", class: "os rounded-md align-middle border-custom mx-auto", alt: os_name.id
+          p.text-xl.text-center.pt-4
+            = os_name.name
+
+  .md_flex.md_items-center.my-10.justify-center
+    = link_to 'Back', models_path, class: 'hover_bg-gray-200 focus_shadow-outline focus_outline-none text-gray-800 font-bold py-4 px-8 mx-4 rounded-md'
+    = f.submit @submit_text, class: 'shadow bg-blue-500 hover_bg-blue-600 focus_shadow-outline focus_outline-none text-white font-bold py-4 px-8 mx-4 rounded-md'

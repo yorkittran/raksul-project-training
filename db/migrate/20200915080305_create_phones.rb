@@ -6,9 +6,10 @@ class CreatePhones < ActiveRecord::Migration[6.0]
       t.references :os_version, null: false, foreign_key: true
       t.references :model, null: false, foreign_key: true
       t.references :user, null: false, foreign_key: true
-      t.boolean :delete_flag, null: false, default: 0
+      t.datetime :discarded_at
 
       t.timestamps
+      t.index :discarded_at
     end
   end
 end

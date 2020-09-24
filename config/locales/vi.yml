@@ -1,0 +1,19 @@
+vi:
+  activerecord:
+    models:
+      model: 'Dòng máy'
+      manufacturer: 'Nhà sản xuất'
+    attributes:
+      model:
+        name: 'Tên'
+        year_of_manufacture: 'Năm sản xuất'
+      manufacturer:
+        name: 'Tên'
+  models:
+    index:
+      models: 'Các dòng máy'
+  flashes:
+    success:
+      model:
+        active: 'Dòng máy được khôi phục thành công.'
+        deactive: 'Dòng máy được xoá thành công.'
