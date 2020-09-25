@@ -8,8 +8,9 @@ RSpec.describe '/inventories', type: :request do
   let(:os_name) { create(:os_name) }
   let(:os_version) { create(:os_version) }
   let(:user) { create(:user) }
-  let(:phone) { create(:phone, body_color: body_color, memory: memory, os_version: os_version, model: model, user: user) }
+  let(:phone) { create(:phone, body_color: body_color, memory: memory, os_version: os_version, model: model, user: user) } # rubocop:disable Layout/LineLength
   let(:inventory) { create(:inventory, phone: phone) }
+
   before do
     sign_in user
   end
@@ -88,5 +89,4 @@ RSpec.describe '/inventories', type: :request do
       end
     end
   end
-
 end
