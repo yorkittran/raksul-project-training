@@ -8,11 +8,11 @@ class InventoriesController < ApplicationController
     @warehouse = Phone.joins(:inventories, :memory, :model).select(:model_id, :name, 'SUM(quantity) as total_quantity', 'MAX(price) as max_price', 'MIN(price) as min_price', 'MAX(amount) as max_amount', 'MIN(amount) as min_amount').group(:model_id) # rubocop:disable Layout/LineLength
   end
 
-  # GET /models/1
-  # GET /models/1.json
+  # GET /inventories/1
+  # GET /inventories/1.json
   def show; end
 
-  # GET /phones/new
+  # GET /inventories/new
   def new
     @inventory = Inventory.new
     @models = Model.pluck(:name).to_json.html_safe
@@ -59,6 +59,10 @@ class InventoriesController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_model
     @inventory = Inventory.find(params[:id])
+  end
+
+  def model_params
+    params.require(:model_id)
   end
 
   def convert_params
