@@ -9,35 +9,35 @@ RSpec.describe "/inventories", type: :request do
   let(:memory) { create(:memory) }
 
   describe "POST /create" do
-    before do
-      sign_in user
-    end
-
     context "with valid parameters" do
+      before do
+        sign_in user
+      end
+
       it "creates a new inventory" do
-        expect do
-          inventory = {
-            model: { name: { '0': model.name } },
-            body_color: { name: { '0': 'Space Grey' } },
-            memory: { display_name: { '0': '128GB' }, amount: { '0': 128 } },
-            os_version: { major: { '0': 10 }, minor: { '0': 1 }, patch: { '0': 3 } },
-            inventory: { quantity: { '0': 10 }, price: { '0': 200 } },
-          }
-          post inventories_url, params: inventory
-        end.to change(Inventory, :count).by(1)
+        inventory = {
+          model: { name: { '0': model.name } },
+          body_color: { name: { '0': 'Space Grey' } },
+          memory: { display_name: { '0': '128GB' }, amount: { '0': 128 } },
+          os_version: { major: { '0': 10 }, minor: { '0': 1 }, patch: { '0': 3 } },
+          inventory: { quantity: { '0': 10 }, price: { '0': 200 } },
+        }
+        post inventories_url, params: inventory
+
+        expect(response).to redirect_to inventories_path
       end
 
       it "creates a new inventory with exists foreign key" do
-        expect do
-          inventory_with_exists_foreign_key = {
-            model: { name: { '0': model.name } },
-            body_color: { name: { '0': body_color.name } },
-            memory: { display_name: { '0': memory.display_name }, amount: { '0': memory.amount } },
-            os_version: { major: { '0': 10 }, minor: { '0': 1 }, patch: { '0': 3 } },
-            inventory: { quantity: { '0': 10 }, price: { '0': 200 } },
-          }
-          post inventories_url, params: inventory_with_exists_foreign_key
-        end.to change(BodyColor, :count).by(1)
+        inventory_with_exists_foreign_key = {
+          model: { name: { '0': model.name } },
+          body_color: { name: { '0': body_color.name } },
+          memory: { display_name: { '0': memory.display_name }, amount: { '0': memory.amount } },
+          os_version: { major: { '0': 10 }, minor: { '0': 1 }, patch: { '0': 3 } },
+          inventory: { quantity: { '0': 10 }, price: { '0': 200 } },
+        }
+        post inventories_url, params: inventory_with_exists_foreign_key
+
+        expect(response).to redirect_to inventories_path
       end
 
       it "creates new inventories" do
@@ -51,23 +51,31 @@ RSpec.describe "/inventories", type: :request do
           }
           post inventories_url, params: inventories
         end.to change(Inventory, :count).by(2)
+        expect(response).to redirect_to inventories_path
       end
     end
 
     context "with invalid parameters" do
+      before do
+        sign_in user
+      end
+
       it "creates a new inventory with not existed model" do
-        expect do
-          inventory = {
-            model: { name: { '0': 999 } },
-            body_color: { name: { '0': 'Space Grey' } },
-            memory: { display_name: { '0': '128GB' }, amount: { '0': 128 } },
-            os_version: { major: { '0': 10 }, minor: { '0': 1 }, patch: { '0': 3 } },
-            inventory: { quantity: { '0': 10 }, price: { '0': 200 } },
-          }
-          post inventories_url, params: inventory
-        end.to change(Inventory, :count).by(0)
+        inventory = {
+          model: { name: { '0': 999 } },
+          body_color: { name: { '0': 'Space Grey' } },
+          memory: { display_name: { '0': '128GB' }, amount: { '0': 128 } },
+          os_version: { major: { '0': 10 }, minor: { '0': 1 }, patch: { '0': 3 } },
+          inventory: { quantity: { '0': 10 }, price: { '0': 200 } },
+        }
+        post inventories_url, params: inventory
         expect(response).to have_http_status(:internal_server_error)
       end
+    end
+
+    it "creates a new inventory with unauthenticated user" do
+      post inventories_url, params: {}
+      expect(response).to redirect_to new_sessions_path
     end
   end
 end
