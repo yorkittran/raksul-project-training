@@ -12,18 +12,18 @@
             th data-priority="4" Quantity
             th Action
         tbody
-          - @warehouse.each do |key, item|
+          - @warehouse.each do |item|
             tr
               td
-                = item[:model_name]
+                = item.name
               td
-                = item[:memory]
+                = item.min_amount
               td
-                = item[:price]
+                = item.min_price
               td
-                = item[:quantity]
+                = item.total_quantity
               td
-                = link_to 'Detail', model_path(key), class: 'shadow bg-gray-500 hover_bg-gray-600 focus_shadow-outline focus_outline-none text-white font-bold py-2 px-4 mx-2 rounded'
+                = link_to 'Detail', model_path(item.model_id), class: 'shadow bg-gray-500 hover_bg-gray-600 focus_shadow-outline focus_outline-none text-white font-bold py-2 px-4 mx-2 rounded'
       .my-4
         = link_to 'Import', new_inventory_path, class: 'shadow bg-blue-500 hover_bg-blue-600 focus_shadow-outline focus_outline-none text-white font-bold py-4 px-8 rounded'
 
