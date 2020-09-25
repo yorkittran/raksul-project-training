@@ -17,9 +17,9 @@
               td
                 = item.name
               td
-                = item.min_amount
+                = item.min_amount == item.max_amount ? "#{item.min_amount}GB" : "#{item.min_amount}GB - #{item.max_amount}GB"
               td
-                = item.min_price
+                = item.min_price == item.max_price ? "#{item.min_price}$" : "#{item.min_price}$ - #{item.max_price}$"
               td
                 = item.total_quantity
               td

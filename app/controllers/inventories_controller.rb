@@ -6,14 +6,14 @@ class InventoriesController < ApplicationController
   # GET /inventories.json
   def index
     @warehouse = Phone.joins(:inventories, :memory, :model)
-                      .select(:model_id,
-                              :name,
-                              'SUM(quantity) as total_quantity',
-                              'MAX(price) as max_price',
-                              'MIN(price) as min_price',
-                              'MAX(amount) as max_amount',
-                              'MIN(amount) as min_amount')
-                      .group(:model_id)
+    .select(:model_id,
+            :name,
+            'SUM(quantity) as total_quantity',
+            'MAX(price) as max_price',
+            'MIN(price) as min_price',
+            'MAX(amount) as max_amount',
+            'MIN(amount) as min_amount')
+    .group(:model_id)
   end
 
   # GET /models/1
