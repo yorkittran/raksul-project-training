@@ -23,7 +23,9 @@ class InventoriesController < ApplicationController
   # GET /phones/new
   def new
     @inventory = Inventory.new
-    @models = Model.pluck(:name).to_json.html_safe
+    @models = Model.joins(:manufacturer, :os_name).pluck('models.name', 'manufacturers.name', 'os_names.name').collect do |item|
+      "#{item[0]} (#{item[1]} - #{item[2]})"
+    end.to_json.html_safe
     @body_colors = BodyColor.pluck(:name).to_json.html_safe
     @memories = Memory.pluck(:display_name).to_json.html_safe
   end
@@ -73,7 +75,8 @@ class InventoriesController < ApplicationController
     arr = []
     params[:model][:name].each do |key, value|
       item = {}
-      item[:model] = Model.where(name: value).first
+
+      item[:model] = Model.where(name: value.split(' (')[0]).first
       item[:body_color] = BodyColor.where(name: params[:body_color][:name][key]).first_or_initialize
       item[:memory] = Memory.where(amount: params[:memory][:amount][key], display_name: params[:memory][:display_name][key]).first_or_initialize # rubocop:disable Layout/LineLength
       item[:os_version] = OsVersion.where(major: params[:os_version][:major][key], minor: params[:os_version][:minor][key], patch: params[:os_version][:patch][key]).first_or_initialize # rubocop:disable Layout/LineLength
