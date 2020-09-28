@@ -5,6 +5,5 @@ FactoryBot.define do
     os_version { nil }
     model { nil }
     user { nil }
-    delete_flag { false }
   end
 end

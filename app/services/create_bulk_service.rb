@@ -1,18 +1,19 @@
 class CreateBulkService < ApplicationService
   def call
+    # puts "#{@params[0][:inventory].id} - #{@params[1][:inventory].id} - #{@params[2][:inventory].id}"
     @params.each do |item|
       ActiveRecord::Base.transaction do
         item[:body_color].save!
         item[:memory].save!
         item[:os_version].save!
         phone = Phone.create(
-          user_id: @current_user.id,
-          body_color_id: item[:body_color].id,
-          memory_id: item[:memory].id,
-          os_version_id: item[:os_version].id,
-          model_id: item[:model].id,
+          user: @current_user,
+          body_color: item[:body_color],
+          memory: item[:memory],
+          os_version: item[:os_version],
+          model: item[:model],
         )
-        item[:inventory].phone_id = phone.id
+        item[:inventory].phone = phone
         item[:inventory].save!
       end
     end
