@@ -21,7 +21,7 @@ AllCops:
     - "config/initializers/*"
 
 Layout/LineLength:
-  Max: 120
+  Max: 200
   Exclude:
     - "app/views/**/*"
     - "config/**/*.rb"

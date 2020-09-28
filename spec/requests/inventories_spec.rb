@@ -8,7 +8,7 @@ RSpec.describe '/inventories', type: :request do
   let(:os_name) { create(:os_name) }
   let(:os_version) { create(:os_version) }
   let(:user) { create(:user) }
-  let(:phone) { create(:phone, body_color: body_color, memory: memory, os_version: os_version, model: model, user: user) } # rubocop:disable Layout/LineLength
+  let(:phone) { create(:phone, body_color: body_color, memory: memory, os_version: os_version, model: model, user: user) }
   let(:inventory) { create(:inventory, phone: phone) }
 
   before do
@@ -73,7 +73,7 @@ RSpec.describe '/inventories', type: :request do
         inventories = {
           model: { name: { '0': model.name, '1': model.name } },
           body_color: { name: { '0': body_color.name, '1': body_color.name } },
-          memory: { display_name: { '0': memory.display_name, '1': memory.display_name }, amount: { '0': memory.amount, '1': memory.amount } }, # rubocop:disable Layout/LineLength
+          memory: { display_name: { '0': memory.display_name, '1': memory.display_name }, amount: { '0': memory.amount, '1': memory.amount } },
           os_version: { major: { '0': 10, '1': 10 }, minor: { '0': 1, '1': 2 }, patch: { '0': 3, '1': 4 } },
           inventory: { quantity: { '0': 10, '1': 20 }, price: { '0': 200, '1': 300 } },
         }
