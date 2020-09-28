@@ -50,6 +50,8 @@ test:
 #
 production:
   <<: *default
-  database: raksul_project_training_production
-  username: raksul_project_training
-  password: <%= ENV['RAKSUL_PROJECT_TRAINING_DATABASE_PASSWORD'] %>
+  database: <%= ENV['RDS_DATABASE'] %>
+  username: <%= ENV['RDS_USERNAME'] %>
+  password: <%= ENV['RDS_PASSWORD'] %>
+  host: <%= ENV['RDS_HOST'] %>
+  post: <%= ENV['RDS_PORT'] %>
