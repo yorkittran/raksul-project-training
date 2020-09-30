@@ -32,8 +32,8 @@ document.getElementById("add-button").addEventListener("click", function() {
     +'</div>'
     +'<div class="flex gap-4">'
       +'<div class="w-1-of-3"><label class="text-gray-700 font-bold" for="os_version_'+ index +'">OS Version (ex: 14.0.1)</label><input type="text" name="os_version['+ index +']" id="os_version_'+ index +'" class="form-input w-full mt-1"></div>'
-      +'<div class="w-1-of-3"><label class="text-gray-700 font-bold" for="quantity_'+ index +'">Quantity</label><input type="number" name="quantity['+ index +']" id="quantity_'+ index +'" value="0" class="form-input w-full mt-1" min="0"></div>'
-      +'<div class="w-1-of-3"><label class="text-gray-700 font-bold" for="price_'+ index +'">Price</label><input type="number" name="price['+ index +']" id="price_'+ index +'" value="0" class="form-input w-full mt-1" min="0"></div>'
+      +'<div class="w-1-of-3"><label class="text-gray-700 font-bold" for="quantity_'+ index +'">Quantity</label><input type="number" name="quantity['+ index +']" id="quantity_'+ index +'" value="0" class="form-input w-full mt-1" min="0" max="1000"></div>'
+      +'<div class="w-1-of-3"><label class="text-gray-700 font-bold" for="price_'+ index +'">Price</label><input type="number" name="price['+ index +']" id="price_'+ index +'" value="0" class="form-input w-full mt-1" min="0" max="1000000"></div>'
     +'</div>'
   +'</main>';
   buttonSection.insertAdjacentHTML('beforebegin', card);

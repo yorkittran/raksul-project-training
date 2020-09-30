@@ -16,11 +16,12 @@ class InventoriesController < ApplicationController
   # POST /inventories.json
   def create
     respond_to do |format|
-      if convert_params && CreateBulkService.call(convert_params, current_user)
+      begin
+        CreateBulkService.call(convert_params, current_user)
         format.html { redirect_to inventories_path, notice: 'Inventory was successfully imported.' }
         format.json { render :index, status: :created, location: inventories_path }
-      else
-        flash.now[:alert] = 'Something went wrong'
+      rescue ActiveRecord::RecordInvalid => e
+        flash.now[:alert] = e.message
         format.html { render :new }
         format.json { render json: @inventory, status: :unprocessable_entity }
       end
@@ -68,10 +69,8 @@ class InventoriesController < ApplicationController
   def convert_params
     arr = []
     params[:model].each do |key, value|
-      quantity = params[:quantity][key]
-      price = params[:price][key]
       os_version = validated_os_version(params[:os_version][key])
-      return false unless os_version && quantity == quantity.to_i.to_s && price == price.to_i.to_s
+      return false unless os_version
 
       item = {}
       item[:model] = Model.find(value)
