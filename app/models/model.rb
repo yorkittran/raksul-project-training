@@ -7,4 +7,3 @@ class Model < ApplicationRecord
 
   include Discard::Model
 end
-
