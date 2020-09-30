@@ -68,13 +68,15 @@ class InventoriesController < ApplicationController
   def convert_params
     arr = []
     params[:model].each do |key, value|
+      quantity = params[:quantity][key]
+      price = params[:price][key]
+      os_version = validated_os_version(params[:os_version][key])
+      return false unless os_version && quantity == quantity.to_i.to_s && price == price.to_i.to_s
+
       item = {}
       item[:model] = Model.find(value)
       item[:body_color] = BodyColor.find(params[:body_color][key])
       item[:memory] = Memory.find(params[:body_color][key])
-      os_version = validated_os_version(params[:os_version][key])
-      return false unless os_version
-
       item[:os_version] = OsVersion.where(
         major: os_version[0],
         minor: os_version[1].nil? ? 0 : os_version[1],
