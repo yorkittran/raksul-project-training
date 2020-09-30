@@ -38,7 +38,7 @@ RSpec.describe CreateBulkService do
         end.to change(Inventory, :count).by(1)
       end
 
-      it 'many inventory' do
+      it 'many inventories' do
         expect do
           params = [valid_element, valid_element_2]
           described_class.call(params, user)
