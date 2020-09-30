@@ -10,7 +10,7 @@ class CreateModels < ActiveRecord::Migration[6.0]
       t.timestamps
       t.index :name
       t.index :discarded_at
-      t.index [:name, :manufacturer_id, :os_name_id], name: 'uniq_reference', unique: true
+      t.index :name, name: 'uniq_reference', unique: true
     end
   end
 end

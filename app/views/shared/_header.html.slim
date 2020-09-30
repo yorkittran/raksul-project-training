@@ -14,6 +14,10 @@ body
                   = link_to 'OS', os_names_path, class: 'no-underline hover_no-underline hover_text-pink-500 mx-4'
                 li
                   = link_to 'Manufacturer', manufacturers_path, class: 'no-underline hover_no-underline hover_text-yellow-500 mx-4'
+                li
+                  = link_to 'Body Color', body_colors_path, class: 'no-underline hover_no-underline hover_text-indigo-500 mx-4'
+                li
+                  = link_to 'Memory', memories_path, class: 'no-underline hover_no-underline hover_text-teal-500 mx-4'
         #nav-content.order-2.md_order-3.flex.items-center.text-base
           - if user_signed_in?
             | Welcome,

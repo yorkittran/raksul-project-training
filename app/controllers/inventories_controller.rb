@@ -1,37 +1,28 @@
 class InventoriesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_model, only: %i[show destroy restore]
+  before_action :set_model, only: %i[destroy restore]
+  before_action :set_data, only: %i[new create]
 
   # GET /inventories
   # GET /inventories.json
   def index
-    @warehouse = Phone.joins(:memory).joins("INNER JOIN inventories ON inventories.phone_id = phones.id AND inventories.discarded_at IS NULL").joins("INNER JOIN models ON models.id = phones.model_id AND models.discarded_at IS NULL").select(:model_id, :name, 'SUM(quantity) as total_quantity', 'MAX(price) as max_price', 'MIN(price) as min_price', 'MAX(amount) as max_amount', 'MIN(amount) as min_amount').group(:model_id)
+    @warehouse = Phone.joins(:memory).joins("INNER JOIN inventories ON inventories.phone_id = phones.id AND inventories.discarded_at IS NULL").joins("INNER JOIN models ON models.id = phones.model_id AND models.discarded_at IS NULL").select(:model_id, :name, 'SUM(quantity) as total_quantity', 'MAX(price) as max_price', 'MIN(price) as min_price', 'MAX(amount) as max_amount', 'MIN(amount) as min_amount').group(:model_id) # rubocop:disable Layout/LineLength
   end
-
-  # GET /inventories/1
-  # GET /inventories/1.json
-  def show; end
 
   # GET /inventories/new
-  def new
-    @inventory = Inventory.new
-    @models = Model.joins(:manufacturer, :os_name).pluck('models.name', 'manufacturers.name', 'os_names.name').collect do |item|
-      "#{item[0]} (#{item[1]} - #{item[2]})"
-    end.to_json.html_safe
-    @body_colors = BodyColor.pluck(:name).to_json.html_safe
-    @memories = Memory.pluck(:display_name).to_json.html_safe
-  end
+  def new; end
 
   # POST /inventories
   # POST /inventories.json
   def create
     respond_to do |format|
-      if CreateBulkService.call(convert_params, current_user)
+      if convert_params && CreateBulkService.call(convert_params, current_user)
         format.html { redirect_to inventories_path, notice: 'Inventory was successfully imported.' }
         format.json { render :index, status: :created, location: inventories_path }
       else
+        flash.now[:alert] = 'Something went wrong'
         format.html { render :new }
-        format.json { render json: 'error', status: :unprocessable_entity }
+        format.json { render json: @inventory, status: :unprocessable_entity }
       end
     end
   end
@@ -67,18 +58,42 @@ class InventoriesController < ApplicationController
     params.require(:model_id)
   end
 
+  def set_data
+    @inventory = Inventory.new
+    @models = Model.kept.select(:id, :name).order(:name)
+    @body_colors = BodyColor.select(:id, :name).to_json.html_safe
+    @memories = Memory.select(:id, :display_name).to_json.html_safe
+  end
+
   def convert_params
     arr = []
-    params[:model][:name].each do |key, value|
+    params[:model].each do |key, value|
       item = {}
+      item[:model] = Model.find(value)
+      item[:body_color] = BodyColor.find(params[:body_color][key])
+      item[:memory] = Memory.find(params[:body_color][key])
+      os_version = validated_os_version(params[:os_version][key])
+      return false unless os_version
 
-      item[:model] = Model.where(name: value.split(' (')[0]).first
-      item[:body_color] = BodyColor.where(name: params[:body_color][:name][key]).first_or_initialize
-      item[:memory] = Memory.where(amount: params[:memory][:amount][key], display_name: params[:memory][:display_name][key]).first_or_initialize
-      item[:os_version] = OsVersion.where(major: params[:os_version][:major][key], minor: params[:os_version][:minor][key], patch: params[:os_version][:patch][key]).first_or_initialize
-      item[:inventory] = Inventory.new(quantity: params[:inventory][:quantity][key], price: params[:inventory][:price][key])
+      item[:os_version] = OsVersion.where(
+        major: os_version[0],
+        minor: os_version[1].nil? ? 0 : os_version[1],
+        patch: os_version[2].nil? ? 0 : os_version[2],
+      ).first_or_initialize
+      item[:inventory] = Inventory.new(quantity: params[:quantity][key], price: params[:price][key])
       arr << item
     end
     arr
+  end
+
+  def validated_os_version(params)
+    os_version = params.split('.', -1)
+    return false unless os_version.length < 4 && os_version.any?
+
+    os_version.collect do |element|
+      element = "0" if element.empty?
+      return false unless element.match(/^(\d)+$/)
+    end
+    os_version
   end
 end
