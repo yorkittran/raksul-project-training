@@ -5,7 +5,7 @@ class InventoriesController < ApplicationController
   # GET /inventories
   # GET /inventories.json
   def index
-    @warehouse = Phone.joins(:inventories, :memory, :model).select(:model_id, :name, 'SUM(quantity) as total_quantity', 'MAX(price) as max_price', 'MIN(price) as min_price', 'MAX(amount) as max_amount', 'MIN(amount) as min_amount').group(:model_id) # rubocop:disable Layout/LineLength
+    @warehouse = Phone.joins(:memory).joins("INNER JOIN inventories ON inventories.phone_id = phones.id AND inventories.discarded_at IS NULL").joins("INNER JOIN models ON models.id = phones.model_id AND models.discarded_at IS NULL").select(:model_id, :name, 'SUM(quantity) as total_quantity', 'MAX(price) as max_price', 'MIN(price) as min_price', 'MAX(amount) as max_amount', 'MIN(amount) as min_amount').group(:model_id)
   end
 
   # GET /inventories/1
