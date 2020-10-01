@@ -6,7 +6,7 @@ class InventoriesController < ApplicationController
   # GET /inventories
   # GET /inventories.json
   def index
-    @warehouse = Phone.joins(:memory).joins("INNER JOIN inventories ON inventories.phone_id = phones.id AND inventories.discarded_at IS NULL").joins("INNER JOIN models ON models.id = phones.model_id AND models.discarded_at IS NULL").select(:model_id, :name, 'SUM(quantity) as total_quantity', 'MAX(price) as max_price', 'MIN(price) as min_price', 'MAX(amount) as max_amount', 'MIN(amount) as min_amount').group(:model_id) # rubocop:disable Layout/LineLength
+    @warehouse = Phone.joins(:memory, :inventories, :model).select(:model_id, :name, 'SUM(quantity) as total_quantity', 'MAX(price) as max_price', 'MIN(price) as min_price', 'MAX(amount) as max_amount', 'MIN(amount) as min_amount').where('inventories.discarded_at IS NULL').where('models.discarded_at IS NULL').group(:model_id) # rubocop:disable Layout/LineLength
   end
 
   # GET /inventories/new
@@ -17,7 +17,7 @@ class InventoriesController < ApplicationController
   def create
     respond_to do |format|
       begin
-        CreateBulkService.call(convert_params, current_user)
+        Inventories::BulkCreateService.call(convert_params, current_user)
         format.html { redirect_to inventories_path, notice: 'Inventory was successfully imported.' }
         format.json { render :index, status: :created, location: inventories_path }
       rescue ActiveRecord::RecordInvalid => e

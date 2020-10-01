@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe CreateBulkService do
+RSpec.describe Inventories::BulkCreateService do
   describe 'call' do
     let(:body_color) { create(:body_color) }
     let(:manufacturer) { create(:manufacturer) }

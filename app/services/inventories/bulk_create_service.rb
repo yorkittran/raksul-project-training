@@ -1,4 +1,4 @@
-class CreateBulkService < ApplicationService
+class Inventories::BulkCreateService < ApplicationService
   def call
     @params.each do |item|
       ActiveRecord::Base.transaction do
