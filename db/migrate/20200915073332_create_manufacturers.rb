@@ -4,6 +4,7 @@ class CreateManufacturers < ActiveRecord::Migration[6.0]
       t.string :name, null: false, unique: true
 
       t.timestamps
+      t.index :name, name: 'uniq_reference', unique: true
     end
   end
 end

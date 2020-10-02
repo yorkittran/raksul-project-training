@@ -5,6 +5,7 @@ class CreateMemories < ActiveRecord::Migration[6.0]
       t.string :display_name, null: false, unique: true
 
       t.timestamps
+      t.index :display_name, name: 'uniq_reference', unique: true
     end
   end
 end

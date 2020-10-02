@@ -3,6 +3,6 @@ FactoryBot.define do
     id { "" }
     name { "MyString" }
     manufacturer { nil }
-    year_of_manufacture { "2020-09-15 14:41:29" }
+    year_of_manufacture { 2020 }
   end
 end

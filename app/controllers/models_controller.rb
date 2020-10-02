@@ -1,7 +1,7 @@
 class ModelsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_model, only: %i[show edit update destroy restore]
-  before_action :necessary_data, only: %i[new edit]
+  before_action :necessary_data, only: %i[new edit create]
 
   # GET /models
   # GET /models.json
