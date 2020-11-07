@@ -21,6 +21,7 @@ Rails.application.configure do
   # config.require_master_key = true
 
   # Disable serving static files from the `/public` folder by default since
+  config.serve_static_files = true
   # Apache or NGINX already handles this.
   config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
 
