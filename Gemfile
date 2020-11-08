@@ -28,6 +28,7 @@ gem 'bcrypt', '~> 3.1.7'
 # gem 'image_processing', '~> 1.2'
 
 # More gems
+gem 'aws-sdk-s3', require: false
 gem 'devise', '~> 4.7', '>= 4.7.2'
 gem 'discard', '~> 1.2'
 gem 'image_processing', '~> 1.2'
