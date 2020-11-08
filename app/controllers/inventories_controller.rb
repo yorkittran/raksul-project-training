@@ -61,7 +61,7 @@ class InventoriesController < ApplicationController
 
   def set_data
     @inventory = Inventory.new
-    @models = Model.select(:id, :name).order(:name)
+    @models = Model.kept.select(:id, :name).order(:name)
     @body_colors = BodyColor.select(:id, :name).to_json.html_safe
     @memories = Memory.select(:id, :display_name).to_json.html_safe
   end

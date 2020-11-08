@@ -6,10 +6,10 @@ class Phone < ApplicationRecord
   belongs_to :user
   has_many :inventories, dependent: :destroy
 
-  # include Discard::Model
-  # scope :kept, -> { undiscarded.joins(:model).merge(Model.kept) }
+  include Discard::Model
+  scope :kept, -> { undiscarded.joins(:model).merge(Model.kept) }
 
-  # def kept?
-  #   undiscarded? && model.kept?
-  # end
+  def kept?
+    undiscarded? && model.kept?
+  end
 end
