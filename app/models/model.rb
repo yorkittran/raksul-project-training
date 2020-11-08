@@ -5,5 +5,5 @@ class Model < ApplicationRecord
 
   validates :year_of_manufacture, numericality: { only_integer: true }
 
-  include Discard::Model
+  # include Discard::Model
 end
